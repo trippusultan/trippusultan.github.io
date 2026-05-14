@@ -3,40 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Open-source contributor portfolio — Python, Web, Mobile, Security">
-  <title>Tripp Sultan — Open Source Contributor</title>
+  <title>Abdul Taufeeq — Open-Source Contributor</title>
+  <meta name="description" content="Portfolio of Abdul Taufeeq (trippusultan) — open-source contributions, PRs merged, seeking paid development work">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0a0a0a;
-      --bg-elevated: #111111;
-      --bg-card: #161616;
-      --border: #262626;
-      --text-primary: #fafafa;
-      --text-secondary: #a1a1aa;
-      --text-muted: #52525b;
-      --accent: #6366f1;
-      --accent-glow: rgba(99, 102, 241, 0.15);
-      --success: #22c55e;
-      --gradient-start: #6366f1;
-      --gradient-end: #8b5cf6;
-    }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #000000;
+      --bg-elevated: #0a0a0a;
+      --bg-card: #111111;
+      --border: #262626;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1a1;
+      --text-muted: #525252;
+      --accent: #ffffff;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
+    }
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
+      font-family: var(--font-sans);
+      background-color: var(--bg);
       color: var(--text-primary);
       line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
@@ -45,74 +43,74 @@
       padding: 0 24px;
     }
 
-    /* Hero Section */
-    .hero {
-      padding: 120px 0 80px;
-      text-align: center;
-      position: relative;
+    /* Header */
+    header {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
     }
 
-    .hero-content {
-      position: relative;
-      z-index: 1;
+    .identity {
+      flex: 1;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-family: var(--font-mono);
+      transition: color 0.2s ease;
+    }
+
+    .social-link:hover {
+      color: var(--text-primary);
     }
 
     .avatar {
-      width: 120px;
-      height: 120px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
+      background: var(--bg-card);
       border: 2px solid var(--border);
-      margin: 0 auto 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
-      font-weight: 700;
-      background: var(--bg-card);
-    }
-
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-
-    .hero .subtitle {
-      font-size: 20px;
-      color: var(--text-secondary);
-      font-weight: 400;
-      max-width: 600px;
-      margin: 0 auto 32px;
-    }
-
-    .hero .bio {
-      font-size: 16px;
-      color: var(--text-muted);
-      max-width: 520px;
-      margin: 0 auto;
+      font-size: 32px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      flex-shrink: 0;
     }
 
     /* Stats */
     .stats {
       display: flex;
-      justify-content: center;
-      gap: 48px;
-      margin-top: 48px;
+      gap: 32px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      margin-top: 24px;
     }
 
     .stat {
@@ -120,347 +118,347 @@
     }
 
     .stat-value {
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--text-primary);
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 4px;
     }
 
     .stat-label {
-      font-size: 13px;
-      color: var(--text-muted);
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 4px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
     }
 
-    /* Section Headers */
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 80px 0 40px;
+    /* Main */
+    main {
+      padding: 48px 0;
     }
 
-    .section-header h2 {
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    .section-header::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .section-title {
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 24px;
     }
 
     /* PR Cards */
-    .pr-grid {
-      display: grid;
-      gap: 16px;
+    .pr-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .pr-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 24px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
       transition: all 0.2s ease;
       text-decoration: none;
       color: inherit;
-      display: block;
     }
 
     .pr-card:hover {
-      border-color: var(--accent);
+      border-color: var(--text-muted);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .pr-left {
+      flex: 1;
+    }
+
+    .pr-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .pr-repo {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .pr-status {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+
+    .status-open {
+      background: #1a1a1a;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .pr-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 6px;
     }
 
     .pr-meta {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .tag {
-      background: var(--bg-elevated);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-    }
-
-    .tag.open { color: var(--success); }
-    .tag.merged { color: #3b82f6; }
-
-    .pr-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-
-    .pr-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .pr-repo {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 12px;
+      gap: 16px;
       font-size: 13px;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
     }
 
-    .pr-repo svg {
-      width: 14px;
-      height: 14px;
-    }
-
-    /* Stack Tags */
-    .stack-tags {
+    .pr-meta span {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
     }
 
-    .stack-tag {
-      font-size: 11px;
-      padding: 4px 10px;
-      background: var(--bg-elevated);
+    .pr-link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .pr-link:hover {
+      color: var(--text-primary);
+    }
+
+    /* Tech Stack */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .tech-tag {
+      font-size: 12px;
+      padding: 6px 12px;
       border: 1px solid var(--border);
       border-radius: 6px;
       color: var(--text-secondary);
-    }
-
-    .stack-tag.python { border-color: #3776ab; color: #3776ab; }
-    .stack-tag.security { border-color: #f59e0b; color: #f59e0b; }
-    .stack-tag.mobile { border-color: #40c4ff; color: #40c4ff; }
-
-    /* CTA Section */
-    .cta {
-      margin-top: 100px;
-      padding: 60px 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-
-    .cta h3 {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .cta p {
-      color: var(--text-secondary);
-      max-width: 500px;
-      margin: 0 auto 32px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .button:hover {
-      background: var(--gradient-end);
-      transform: scale(1.02);
-    }
-
-    .button svg {
-      width: 16px;
-      height: 16px;
+      font-family: var(--font-mono);
     }
 
     /* Footer */
-    .footer {
-      padding: 32px 0;
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
+    footer {
+      padding: 32px 0 48px;
       border-top: 1px solid var(--border);
-      margin-top: 60px;
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .footer-text a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-text a:hover {
+      color: var(--text-primary);
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 36px; }
-      .stats { gap: 24px; }
-      .pr-card { padding: 20px; }
+    @media (max-width: 640px) {
+      .header-content {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+      }
+
+      .social-link {
+        justify-content: center;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .avatar {
+        width: 64px;
+        height: 64px;
+        font-size: 26px;
+      }
+
+      .stats {
+        gap: 16px;
+      }
+
+      .stat-value {
+        font-size: 24px;
+      }
+
+      .pr-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .pr-link {
+        justify-content: flex-start;
+      }
+    }
+
+    /* Utility: Hide focus outline but keep accessibility */
+    *:focus-visible {
+      outline: 2px solid var(--text-primary);
+      outline-offset: 2px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="avatar">TS</div>
-        <h1>Tripp Sultan</h1>
-        <p class="subtitle">Open-source contributor · Python · Web · Mobile · Security</p>
-        <p class="bio">Building legitimate open-source contributions to solve real problems. Specializing in memory leak fixes, security policies, and developer tooling.</p>
+    <!-- Header -->
+    <header>
+      <div class="header-content">
+        <div class="identity">
+          <h1>Abdul Taufeeq</h1>
+          <p class="subtitle">Open-source contributor — seeking paid development work</p>
+          <a href="https://github.com/trippusultan" class="social-link" target="_blank" rel="noopener">
+            <span>→</span> github.com/trippusultan
+          </a>
+        </div>
+        <div class="avatar">AT</div>
+      </div>
 
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-value" id="pr-count">3</div>
-            <div class="stat-label">PRs Opened</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value">2</div>
-            <div class="stat-label">Stacks</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value">100%</div>
-            <div class="stat-label">Legitimate</div>
-          </div>
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" id="pr-count">3</div>
+          <div class="stat-label">PRs Opened</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="merge-count">0</div>
+          <div class="stat-label">Merged</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Stacks</div>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- Active PRs -->
-    <section>
-      <div class="section-header">
-        <h2>Active Pull Requests</h2>
-      </div>
+    <!-- Open PRs -->
+    <main>
+      <div class="section-title">Open Pull Requests</div>
 
-      <div class="pr-grid">
-        <!-- PR 1 -->
-        <a href="https://github.com/yashvardhancse/QuantNova/pull/19" target="_blank" class="pr-card">
-          <div class="pr-meta">
-            <span class="tag open">OPEN</span>
-            <span>May 14, 2026</span>
+      <div class="pr-list">
+        <!-- PR 1: QuantNova -->
+        <a href="https://github.com/yashvardhancse/QuantNova/pull/19" target="_blank" rel="noopener" class="pr-card">
+          <div class="pr-left">
+            <div class="pr-header">
+              <span class="pr-repo">yashvardhancse/QuantNova</span>
+              <span class="pr-status status-open">Open</span>
+            </div>
+            <div class="pr-title">docs: update SETUP.md with installation instructions</div>
+            <div class="pr-meta">
+              <span>📄 Documentation</span>
+              <span>🐍 Python</span>
+              <span>⚡ FastAPI</span>
+            </div>
           </div>
-          <h3 class="pr-title">docs: add comprehensive SETUP.md guide for beginners</h3>
-          <p class="pr-desc">Complete environment setup documentation covering FastAPI backend, React frontend, Windows/macOS/Linux instructions, troubleshooting, and verification checklist. 260 lines of beginner-friendly content.</p>
-          <div class="stack-tags">
-            <span class="stack-tag python">Python</span>
-            <span class="stack-tag">FastAPI</span>
-            <span class="stack-tag">Documentation</span>
-          </div>
-          <div class="pr-repo">
-            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            yashvardhancse/QuantNova · PR #19
+          <div class="pr-link">
+            View PR <span>→</span>
           </div>
         </a>
 
-        <!-- PR 2 -->
-        <a href="https://github.com/magic-peach/reframe/pull/294" target="_blank" class="pr-card">
-          <div class="pr-meta">
-            <span class="tag open">OPEN</span>
-            <span>May 14, 2026</span>
+        <!-- PR 2: Reframe -->
+        <a href="https://github.com/magic-peach/reframe/pull/294" target="_blank" rel="noopener" class="pr-card">
+          <div class="pr-left">
+            <div class="pr-header">
+              <span class="pr-repo">magic-peach/reframe</span>
+              <span class="pr-status status-open">Open</span>
+            </div>
+            <div class="pr-title">feat: add SECURITY.md with vulnerability reporting policy</div>
+            <div class="pr-meta">
+              <span>🛡️ Security</span>
+              <span>📘 TypeScript</span>
+              <span>🏷️ GSSoC</span>
+            </div>
           </div>
-          <h3 class="pr-title">docs: add SECURITY.md with vulnerability reporting policy</h3>
-          <p class="pr-desc">Adds responsible disclosure policy using GitHub Private Vulnerability Reporting. Defines supported versions, scope, response timeline, and out-of-scope items. Industry-standard security template.</p>
-          <div class="stack-tags">
-            <span class="stack-tag security">Security</span>
-            <span class="stack-tag">Documentation</span>
-            <span class="stack-tag">GSSoC'26</span>
-          </div>
-          <div class="pr-repo">
-            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            magic-peach/reframe · PR #294
-          </div>
-        </a>
-
-        <!-- PR 3 -->
-        <a href="https://github.com/flutter/flutter/pull/186524" target="_blank" class="pr-card">
-          <div class="pr-meta">
-            <span class="tag open">OPEN</span>
-            <span>May 14, 2026</span>
-          </div>
-          <h3 class="pr-title">examples: fix IndexedStack dispose memory leak</h3>
-          <p class="pr-desc">Added missing dispose() method to _IndexedStackExampleState to clean up the TextEditingController and prevent memory leaks in the IndexedStack example (Flutter core).</p>
-          <div class="stack-tags">
-            <span class="stack-tag mobile">Mobile/Flutter</span>
-            <span class="stack-tag">Memory Leak</span>
-          </div>
-          <div class="pr-repo">
-            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            flutter/flutter · PR #186524
+          <div class="pr-link">
+            View PR <span>→</span>
           </div>
         </a>
-      </div>
-    </section>
 
-    <!-- Tech Stack -->
-    <section>
-      <div class="section-header">
-        <h2>Technologies</h2>
+        <!-- PR 3: Flutter -->
+        <a href="https://github.com/flutter/flutter/pull/186524" target="_blank" rel="noopener" class="pr-card">
+          <div class="pr-left">
+            <div class="pr-header">
+              <span class="pr-repo">flutter/flutter</span>
+              <span class="pr-status status-open">Open</span>
+            </div>
+            <div class="pr-title">fix(IndexedStack): add dispose() method to prevent memory leak</div>
+            <div class="pr-meta">
+              <span>📱 Mobile</span>
+              <span>🦋 Flutter</span>
+              <span>🐛 Bug fix</span>
+            </div>
+          </div>
+          <div class="pr-link">
+            View PR <span>→</span>
+          </div>
+        </a>
       </div>
-      <div class="stack-tags" style="font-size: 13px;">
-        <span class="stack-tag">Python</span>
-        <span class="stack-tag">FastAPI</span>
-        <span class="stack-tag">React</span>
-        <span class="stack-tag">TypeScript</span>
-        <span class="stack-tag">Flutter</span>
-        <span class="stack-tag">Dart</span>
-        <span class="stack-tag">GitHub Actions</span>
-        <span class="stack-tag">Ruff</span>
-        <span class="stack-tag">pytest</span>
-        <span class="stack-tag">vitest</span>
-      </div>
-    </section>
 
-    <!-- CTA -->
-    <section class="cta">
-      <h3>Open to collaboration</h3>
-      <p>Currently seeking paid open-source contributions and maintenance contracts. Specializing in memory leak fixes, security policies, and Python/Flutter contributions.</p>
-      <a href="https://github.com/trippusultan" target="_blank" class="button">
-        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        View GitHub Profile
-      </a>
-    </section>
+      <!-- Tech Stack -->
+      <div class="tech-stack">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">FastAPI</span>
+        <span class="tech-tag">TypeScript</span>
+        <span class="tech-tag">Flutter</span>
+        <span class="tech-tag">Security</span>
+        <span class="tech-tag">Documentation</span>
+        <span class="tech-tag">Mobile Dev</span>
+        <span class="tech-tag">Open Source</span>
+      </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
-      <p>Built and maintained by Tripp Sultan · © 2026</p>
+    <footer>
+      <p class="footer-text">
+        © 2026 Abdul Taufeeq. Available for paid work — <a href="mailto:trippusultan@example.com">contact me</a>
+      </p>
     </footer>
   </div>
 
   <script>
-    // Simple count-up animation for stats
+    // Simple PR counter animation
     document.addEventListener('DOMContentLoaded', () => {
-      const counters = [
-        { id: 'pr-count', target: 3, duration: 1500 }
-      ];
-      counters.forEach(counter => {
-        const el = document.getElementById(counter.id);
-        const start = 0;
-        const increment = (counter.target - start) / (counter.duration / 16);
-        let current = start;
-        const animate = () => {
-          current += increment;
-          if (current < counter.target) {
-            el.textContent = Math.floor(current);
-            requestAnimationFrame(animate);
-          } else {
-            el.textContent = counter.target;
-          }
-        };
-        requestAnimationFrame(animate);
-      });
+      const countEl = document.getElementById('pr-count');
+      const target = 3;
+      let current = 0;
+      const duration = 800; // ms per step
+      const steps = 30;
+      const increment = target / steps;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        countEl.textContent = Math.floor(current);
+      }, duration);
     });
   </script>
 </body>
