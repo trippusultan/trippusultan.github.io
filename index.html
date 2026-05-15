@@ -9,117 +9,366 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ═══════════════════════════════════════════════════════
+       BRUTALIST 2.0 — responsive for all viewports
+       palette  : canvas #0a0a0a | ink #fafafa | grid #1e1e1e | accent #00e5ff
+       type     : IBM Plex Mono — everything
+       geometry : 0 radius, 1px hairline dividers, zero gradients/shadows
+       breakpoints : 1024 · 767 · 640 · 480 · 360
+       ═══════════════════════════════════════════════════════ */
+
+    /* ── VARIABLES ───────────────────────────────────── */
     :root {
-      --canvas: #0a0a0a;
-      --ink:    #fafafa;
-      --grid:   #1e1e1e;
-      --accent: #00e5ff;
-      --muted:  #444;
-      --border: #222;
+      --canvas:    #0a0a0a;
+      --ink:       #fafafa;
+      --grid:      #1e1e1e;
+      --accent:    #00e5ff;
+      --muted:     #444;
+      --border:    #222;
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;font-size:16px;background:var(--canvas);color:var(--ink)}
-    body{font-family:'IBM Plex Mono','Courier New',monospace;font-weight:400;line-height:1.6}
-    body::before{content:"";pointer-events:none;position:fixed;inset:0;z-index:9999;
-      background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-      background-size:40px 40px;opacity:.35}
-    body::after{content:"";pointer-events:none;position:fixed;inset:0;z-index:9998;
-      background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px)}
-    ::selection{background:var(--ink);color:var(--canvas)}
-    h1,h2,h3{font-weight:700;letter-spacing:-.03em;line-height:1}
-    h1{font-size:clamp(3.5rem,11vw,9rem)}
-    h2{font-size:clamp(1.2rem,3vw,1.8rem)}
-    h3{font-size:clamp(.85rem,1.5vw,1.05rem)}
-    p{font-size:.85rem;line-height:1.8;color:#888}
-    a{color:inherit;text-decoration:none}a:hover{color:var(--accent)}
-    section{padding:4.5rem 0}
-    hr{border:none;height:1px;background:var(--grid);margin:0}
-    .divider{height:1px;background:var(--grid);margin:0}
-    .w{max-width:1100px;margin-inline:auto;padding-inline:1.5rem}
-    @media(min-width:40rem){.w{padding-inline:3rem}}
-    .eyebrow{font-size:.6rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
-    .eyebrow::after{content:"";flex:1;height:1px;background:var(--grid);flex-shrink:1}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
-    @media(max-width:900px){.row{grid-template-columns:1fr;gap:2rem}}
+
+    /* ── RESET / BASE ────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      background: var(--canvas);
+      color: var(--ink);
+    }
+    body {
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-weight: 400;
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden; /* prevent horizontal scroll */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* ── GRID TEXTURE OVERLAY ────────────────────────── */
+    body::before {
+      content: "";
+      pointer-events: none;
+      position: fixed; inset: 0;
+      z-index: 9999;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: .35;
+    }
+    /* scanlines */
+    body::after {
+      content: "";
+      pointer-events: none;
+      position: fixed; inset: 0;
+      z-index: 9998;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,0,0,.04) 3px, rgba(0,0,0,.04) 4px
+      );
+    }
+
+    ::selection { background: var(--ink); color: var(--canvas); }
+
+    /* ── TYPOGRAPHY ──────────────────────────────────── */
+    h1, h2, h3 { font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+    h1  { font-size: clamp(2.6rem, 11vw, 9rem); }
+    h2  { font-size: clamp(1.15rem, 3vw, 1.8rem); }
+    h3  { font-size: clamp(.85rem, 1.5vw, 1.05rem); }
+    p   { font-size: .85rem; line-height: 1.8; color: #888; }
+    a   { color: inherit; text-decoration: none; }
+    a:hover { color: var(--accent); }
+
+    /* ── LAYOUT HELPERS ──────────────────────────────── */
+    .w  { max-width: 1100px; margin-inline: auto; padding-inline: clamp(.75rem, 3vw, 3rem); }
+    section { padding: clamp(2rem, 5vw, 4.5rem) 0; }
+
+    /* ── HAIRLINE HR ─────────────────────────────────── */
+    hr { border: none; height: 1px; background: var(--grid); margin: 0; }
+
+    /* ── EYEBROW ─────────────────────────────────────── */
+    .eyebrow {
+      font-size: clamp(.52rem, .7vw, .6rem);
+      font-weight: 500; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--grid); flex-shrink: 1; }
+
+    /* ── TWO-COL GRID ────────────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: start;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE BREAKPOINT CHART
+       ─────────────────────────────────────────────────
+       1024 : w≥1024 desktop-layout mode
+        900 : minor tweaks + spacing
+        767 : tablet/mid-portrait — all 2-col → 1-col
+        640 : small tablets — tighter gutters
+        480 : phone — minimal touch targets + no sideways padding
+        360 : small-phone — full-edge content
+       ═══════════════════════════════════════════════════ */
+
+    /* ─── 767 PORTRAIT / SMALL LAPTOP ─── */
+    @media (max-width: 767px) {
+
+      /* any 2-col grids collapse to 1-col */
+      .two-col     { grid-template-columns: 1fr; gap: 2.5rem; }
+      .row         { grid-template-columns: 1fr; gap: 2rem; }
+      .exp         { grid-template-columns: 1fr !important; gap: .25rem 0; }
+      .exp-date    { text-align: left !important; padding-top: 0 !important; }
+
+      /* stats 4-col → 2-col (was already at 700, normalise to 767) */
+      .stats       { grid-template-columns: repeat(2, 1fr); }
+
+      /* focus 3-cards → 2-col */
+      #focus div[style*="grid-template-columns:repeat"]  { grid-template-columns: repeat(2, 1fr) !important; }
+
+      /* tighten section padding on small screens */
+      section      { padding: 3rem 0; }
+      .w           { padding-inline: clamp(1rem, 4vw, 1.5rem); }
+    }
+
+    /* ─── 640 COMPACT TABLET ─── */
+    @media (max-width: 640px) {
+
+      /* tech grid 3-col → 2-col */
+      .tech-grid   { grid-template-columns: repeat(2, 1fr); }
+
+      /* project: stack date + title, hide stars-right column */
+      .project     { grid-template-columns: 1fr !important; gap: .4rem; }
+      .project-cta { display: none !important; }
+      .project-meta { font-size: .52rem; }
+
+      /* nav: stack links */
+      nav          { flex-direction: column; align-items: flex-start; gap: .5rem; padding: .85rem 1.25rem; }
+      nav a        { margin-left: 0; margin-right: 1rem; font-size: .58rem; }
+
+      /* reg strip: wrap, smaller gap */
+      .register    { padding: .5rem 1.25rem; gap: .6rem; flex-wrap: wrap; }
+
+      /* hero: tighter spacing */
+      .hero        { padding: 2.5rem 0 3rem; }
+      .hero-meta   { gap: .9rem; }
+
+      /* two-col in about: tighter */
+      .about        div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+
+      /* btn row: wrap naturally */
+      .hero div[style*="gap:.6rem"]  { flex-wrap: wrap !important; }
+
+      /* w container */
+      .w           { padding-inline: 1rem; }
+    }
+
+    /* ─── 480 LARGE PHONE ─── */
+    @media (max-width: 480px) {
+
+      /* tech grid 2-col → 1-col */
+      .tech-grid   { grid-template-columns: 1fr; }
+
+      /* focus 2-col → 1-col */
+      #focus div[style*="grid-template-columns:repeat"]  { grid-template-columns: 1fr !important; }
+
+      /* stats full width still 2-col (ok) — reduce gap */
+      .stats       { gap: 0; }
+      .stat        { padding: .85rem 1rem; }
+
+      /* buttons: tighter */
+      .btn         { padding: .55rem 1rem; font-size: .6rem; }
+
+      /* reg strip: remove sep lines for small width */
+      .register .sep  { display: none; }
+      .register       { justify-content: flex-start; }
+
+      /* hero name: smaller minimum */
+      h1           { font-size: clamp(2rem, 14vw, 7rem); }
+
+      /* experience/contact buttons */
+      #contact div[style*="flex-wrap:wrap"] { gap: .5rem !important; }
+    }
+
+    /* ─── 360 SMALL PHONE ─── */
+    @media (max-width: 360px) {
+
+      html         { font-size: 14px; } /* base scale to keep 1rem readable */
+
+      section      { padding: 2.5rem 0; }
+
+      /* hero name at full edge */
+      h1           { letter-spacing: -.06em; }
+
+      /* buttons: full width */
+      .btn         { width: 100%; justify-content: center; }
+
+      /* nav links inline scroll (no wrap) */
+      nav          { overflow-x: auto; white-space: nowrap; padding: .75rem 1rem; }
+      nav          { -webkit-overflow-scrolling: touch; }
+      nav::-webkit-scrollbar { display: none; }
+
+      /* reg strip: single line if possible */
+      .register    { font-size: .52rem; letter-spacing: .15em; }
+    }
+
+    /* ───────────────────────────────────────────────────
+       COMPONENTS  (non-responsive layout, uses grid helpers)
+       ─────────────────────────────────────────────────── */
+
+    .row   { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .grid  { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1px; background: var(--grid); }
+    .cell  { background: var(--canvas); padding: 0; }
+
     /* TOP REGISTER */
-    .register{display:flex;align-items:center;gap:1.25rem;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:.55rem 3rem;border-top:1px solid var(--grid);border-bottom:1px solid var(--grid)}
-    .register .sep{flex:1;height:1px;background:var(--grid)}
+    .register {
+      display: flex; align-items: center; gap: 1.25rem;
+      font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted);
+      padding: .55rem 3rem;
+      border-top: 1px solid var(--grid);
+      border-bottom: 1px solid var(--grid);
+    }
+    .register .sep { flex: 1; height: 1px; background: var(--grid); min-width: 1.5rem; }
+
     /* NAV */
-    nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;border-bottom:1px solid var(--grid);position:sticky;top:0;background:var(--canvas);z-index:100}
-    nav a{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:2rem}
-    nav a:hover{color:var(--accent)}
-    .logo{font-size:.7rem;font-weight:700;letter-spacing:.04em}
-    .logo em{color:var(--accent);font-style:normal}
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 3rem;
+      border-bottom: 1px solid var(--grid);
+      position: sticky; top: 0;
+      background: var(--canvas);
+      z-index: 100;
+    }
+    nav .logo  { font-size: .7rem; font-weight: 700; letter-spacing: .04em; }
+    nav .logo em { color: var(--accent); font-style: normal; }
+    nav a {
+      font-size: .6rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--muted); margin-left: 2rem;
+    }
+    nav a:hover { color: var(--accent); }
+
     /* HERO */
-    .hero{padding:4rem 0 5rem}
-    .topline{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
-    .topline::before{content:"//";color:var(--grid)}
-    .hero h1{font-size:clamp(3.5rem,11vw,9rem);letter-spacing:-.05em;line-height:.85;margin-bottom:2rem}
-    .hero h1 .accent{color:var(--accent)}
-    .hero-meta{display:flex;flex-direction:column;justify-content:flex-end;gap:1.2rem;padding-top:1rem}
-    .meta{font-size:.65rem;letter-spacing:.1em;line-height:1.9;color:var(--muted)}
-    .meta strong{color:var(--ink);font-weight:600}
-    .meta .val{color:var(--ink);display:block}
-    @media(max-width:900px){.hero-meta{padding-top:2rem;flex-direction:row;flex-wrap:wrap;gap:2rem}}
+    .hero  { padding: 4rem 0 5rem; }
+    .topline {
+      font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .topline::before { content: "//"; color: var(--grid); }
+    .hero h1  { font-size: clamp(3.5rem, 11vw, 9rem); letter-spacing: -.05em; line-height: .85; margin-bottom: 2rem; }
+    .hero h1 .accent { color: var(--accent); }
+
+    .hero-meta {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      gap: 1.2rem; padding-top: 1rem;
+    }
+    .meta { font-size: .65rem; letter-spacing: .1em; line-height: 1.9; color: var(--muted); }
+    .meta strong { color: var(--ink); font-weight: 600; }
+    .meta .val   { color: var(--ink); display: block; }
+
     /* STATS */
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--grid)}
-    .stat{padding:1.1rem 1.5rem;border-right:1px solid var(--grid)}
-    .stat:last-child{border-right:none}
-    .stat-n{font-size:1.6rem;font-weight:700;letter-spacing:-.04em;color:var(--ink);line-height:1}
-    .stat-n span{color:var(--accent)}
-    .stat-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.25rem}
-    @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--grid); }
+    .stat  { padding: 1.1rem 1.5rem; border-right: 1px solid var(--grid); }
+    .stat:last-child { border-right: none; }
+    .stat-n { font-size: 1.6rem; font-weight: 700; letter-spacing: -.04em; color: var(--ink); line-height: 1; }
+    .stat-n span { color: var(--accent); }
+    .stat-l { font-size: .52rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: .25rem; }
+
     /* BUTTONS */
-    .btn{display:inline-flex;align-items:center;gap:.45rem;padding:.65rem 1.3rem;font-family:inherit;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ink);background:var(--ink);color:var(--canvas);cursor:pointer;text-decoration:none;white-space:nowrap}
-    .btn:hover{background:var(--accent);border-color:var(--accent);color:var(--canvas)}
-    .btn-ghost{background:transparent;color:var(--ink)}
-    .btn-ghost:hover{background:var(--ink);color:var(--canvas);border-color:var(--ink)}
-    /* PILL */
-    .pill{display:inline-block;padding:.28rem .65rem;font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border);color:var(--muted);white-space:nowrap}
+    .btn  {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .65rem 1.3rem;
+      font-family: inherit; font-size: .65rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid var(--ink); background: var(--ink);
+      color: var(--canvas); cursor: pointer; text-decoration: none;
+      white-space: nowrap; user-select: none;
+      transition: background .12s, border-color .12s, color .12s;
+    }
+    .btn:hover  { background: var(--accent); border-color: var(--accent); color: var(--canvas); }
+    .btn-ghost  { background: transparent; color: var(--ink); }
+    .btn-ghost:hover { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+
+    /* PILLS */
+    .pill         { display: inline-block; padding: .28rem .65rem; font-size: .58rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--border); color: var(--muted); white-space: nowrap; }
+    .pill-filled  { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+
+    /* LINK ACCENT */
+    u, a.highlight { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
     /* PROJECT */
-    .project{display:grid;grid-template-columns:130px 1fr auto;gap:1.5rem;align-items:baseline;padding:2rem 0;border-top:1px solid var(--grid);transition:border-color .12s}
-    .project:first-child{border-top:none}
-    .project:hover{border-color:var(--accent)}
-    .project:last-child{border-bottom:1px solid var(--grid)}
-    .project-meta{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.8}
-    .project-title{font-size:1.05rem;font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1.3;margin-bottom:.35rem}
-    .project-title a{color:inherit}
-    .project-title a:hover{color:var(--accent)}
-    .project-desc{font-size:.78rem;color:var(--muted);line-height:1.75}
-    .project-cta{font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
-    @media(max-width:700px){.project{grid-template-columns:1fr;gap:.5rem} .project-cta{display:none}}
+    .project {
+      display: grid; grid-template-columns: 130px 1fr auto;
+      gap: 1.5rem; align-items: baseline;
+      padding: 2rem 0; border-top: 1px solid var(--grid);
+      transition: border-color .12s;
+    }
+    .project:first-child { border-top: none; }
+    .project:hover      { border-color: var(--accent); }
+    .project:last-child { border-bottom: 1px solid var(--grid); }
+
+    .project-meta  { font-size: .56rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); line-height: 1.8; }
+    .project-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -.02em; color: var(--ink); line-height: 1.3; margin-bottom: .35rem; }
+    .project-title a { color: inherit; }
+    .project-title a:hover { color: var(--accent); }
+    .project-desc  { font-size: .78rem; color: var(--muted); line-height: 1.75; }
+    .project-cta   { font-size: .56rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; }
+
     /* EXPERIENCE */
-    .exp{display:grid;grid-template-columns:auto 1fr;gap:0 3rem;align-items:baseline;margin-bottom:2.5rem}
-    .exp-date{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:right;white-space:nowrap;padding-top:.1rem}
-    .exp-role{font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.2rem}
-    .exp-org{font-size:.75rem;color:var(--muted);margin-bottom:.6rem}
-    .exp-org a{color:var(--muted);border-bottom:1px solid var(--grid)}
-    .exp-org a:hover{border-color:var(--accent);color:var(--accent)}
-    .exp ul{list-style:none;padding-left:0}
-    .exp ul li{font-size:.78rem;color:var(--muted);line-height:1.7;padding-left:1rem;position:relative;margin-bottom:.25rem}
-    .exp ul li::before{content:"›";position:absolute;left:0;color:var(--grid);font-weight:700}
-    /* TECH CELLS */
-    .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--grid);border-top:1px solid var(--grid)}
-    .tech-cell{background:var(--canvas);padding:1.1rem 1.25rem}
-    .tech-cell .label{font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
-    .tech-cell .tools{display:flex;flex-wrap:wrap;gap:.35rem}
-    .tech-cell .tool{font-size:.62rem;font-weight:500;color:var(--ink)}
-    .tech-cell .tool::after{content:",";margin-left:.2rem;color:var(--grid)}
-    .tech-cell .tool:last-child::after{display:none}
-    @media(max-width:700px){.tech-grid{grid-template-columns:1fr}}
+    .exp       { display: grid; grid-template-columns: auto 1fr; gap: 0 3rem; align-items: baseline; margin-bottom: 2.5rem; }
+    .exp-date  { font-size: .65rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-align: right; white-space: nowrap; padding-top: .1rem; min-width: 10rem; }
+    .exp-role  { font-size: .95rem; font-weight: 700; color: var(--ink); margin-bottom: .2rem; }
+    .exp-org   { font-size: .75rem; color: var(--muted); margin-bottom: .6rem; }
+    .exp-org a { color: var(--muted); border-bottom: 1px solid var(--grid); }
+    .exp-org a:hover { border-color: var(--accent); color: var(--accent); }
+    .exp ul    { list-style: none; padding-left: 0; }
+    .exp ul li { font-size: .78rem; color: var(--muted); line-height: 1.7; padding-left: 1rem; position: relative; margin-bottom: .25rem; }
+    .exp ul li::before { content: "›"; position: absolute; left: 0; color: var(--grid); font-weight: 700; }
+
+    /* TECH GRID */
+    .tech-grid  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--grid); border-top: 1px solid var(--grid); }
+    .tech-cell  { background: var(--canvas); padding: 1.1rem 1.25rem; }
+    .tech-cell .label { font-size: .5rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: .7rem; }
+    .tech-cell .tools { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .tech-cell .tool  { font-size: .62rem; font-weight: 500; color: var(--ink); }
+    .tech-cell .tool::after { content: ","; margin-left: .2rem; color: var(--grid); }
+    .tech-cell .tool:last-child::after { display: none; }
+
+    /* FOCUS 3-card grid */
+    #focus div[style*="grid-template-columns:repeat(3,1fr)"] {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--grid); margin-top: 2rem;
+    }
+    #focus div[style*="grid-template-columns:repeat(3,1fr)"] > div {
+      background: var(--canvas); padding: 1.75rem;
+    }
+
     /* LIVE BADGE */
-    .live-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:.25rem .6rem;border:1px solid var(--grid)}
-    .live-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,255,.5)}50%{opacity:.5;box-shadow:0 0 6px 2px rgba(0,229,255,0)}}
+    .live-badge { display: inline-flex; align-items: center; gap: .35rem; font-size: .55rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: .25rem .6rem; border: 1px solid var(--grid); }
+    .live-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,255,.5)} 50%{opacity:.5;box-shadow:0 0 6px 2px rgba(0,229,255,0)} }
+
     /* FOOTER */
-    footer{padding:2.5rem 3rem;border-top:1px solid var(--grid);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-    footer a{color:var(--muted)}footer a:hover{color:var(--accent)}
+    footer { padding: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 3vw, 3rem); border-top: 1px solid var(--grid); font-size: clamp(.5rem, .6vw, .56rem); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem; }
+    footer a { color: var(--muted); } footer a:hover { color: var(--accent); }
+
+    /* CORNER COORDINATES */
+    .coord { position: fixed; bottom: 1rem; right: 1.5rem; font-size: .5rem; letter-spacing: .15em; color: var(--muted); text-align: right; line-height: 1.9; z-index: 9990; pointer-events: none; }
+
+    /* ACCESSIBILITY */
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   </style>
 </head>
 <body>
 
   <!-- TOP REGISTER -->
-  <div class="register">
+  <div class="register" role="banner">
     <span>trippusultan.github.io</span>
     <span class="sep"></span>
     <span>COORDS: 32.1093°N / 76.3451°E</span>
@@ -130,7 +379,7 @@
   </div>
 
   <!-- NAV -->
-  <nav>
+  <nav role="navigation" aria-label="Primary">
     <div class="logo"><em>[</em>AT<em>]</em></div>
     <div>
       <a href="#projects">Projects</a>
@@ -139,28 +388,33 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="hero">
     <div class="w">
-      <div class="row">
+      <div class="two-col">
+
         <div>
           <div class="topline">Abdul Taufeeq</div>
           <h1><span class="accent">T</span>RIPPU<br><span class="accent">S</span>ULTAN</h1>
           <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:1.5rem;">
-            <a href="https://github.com/trippusultan" style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;font-family:inherit;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#888;border:1px solid var(--grid);padding:.38rem .7rem;text-decoration:none;width:fit-content;">
-              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            <a href="https://github.com/trippusultan"
+               style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;font-family:inherit;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#888;border:1px solid var(--grid);padding:.38rem .7rem;text-decoration:none;width:fit-content;">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-label="GitHub"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
               GitHub · @trippusultan
             </a>
-            <a href="https://www.ryteproductions.in" style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;font-family:inherit;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#888;border:1px solid var(--grid);padding:.38rem .7rem;text-decoration:none;width:fit-content;">
-              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 107 7 7 7 0 00-7-7zm0 12.3a5.3 5.3 0 115.3-5.3A5.3 5.3 0 018 13.3zm6.8-8.9A2.16 2.16 0 1113.7 5.7a2.17 2.17 0 01-1.9 3.7zM8 3.8a3.2 3.2 0 113.2 3.2A3.22 3.22 0 018 3.8z"/></svg>
+            <a href="https://www.ryteproductions.in"
+               style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;font-family:inherit;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#888;border:1px solid var(--grid);padding:.38rem .7rem;text-decoration:none;width:fit-content;">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-label="Website"><path d="M8 1a7 7 0 107 7 7 7 0 00-7-7zm0 12.3a5.3 5.3 0 115.3-5.3A5.3 5.3 0 018 13.3zm6.8-8.9A2.16 2.16 0 1113.7 5.7a2.17 2.17 0 01-1.9 3.7zM8 3.8a3.2 3.2 0 113.2 3.2A3.22 3.22 0 018 3.8z"/></svg>
               ryteproductions.in
             </a>
           </div>
-          <div style="display:flex;gap:.6rem;margin-top:2rem;">
+          <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem;">
             <a href="#projects" class="btn">View Projects →</a>
             <a href="https://github.com/trippusultan/RoamReach" class="btn btn-ghost">RoamReach ↗</a>
           </div>
         </div>
+
+        <!-- right: metadata -->
         <div class="hero-meta">
           <div class="meta"><strong>ROLE</strong><span class="val">Full-Stack &amp; AI Engineering</span></div>
           <div class="meta"><strong>STACK</strong><span class="val">TS · Python · RN · Expo · FastAPI</span></div>
@@ -168,38 +422,44 @@
           <div class="meta"><strong>LOCATION</strong><span class="val">India · Remote-ready</span></div>
           <div class="meta"><strong>CONTACT</strong><span class="val"><a href="mailto:sultantrippu@gmail.com" style="color:var(--accent);">sultantrippu@gmail.com</a></span></div>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- STATS -->
   <div class="w">
-    <div class="stats">
-      <div class="stat"><div class="stat-n">18</div><div class="stat-l">Repositories</div></div>
-      <div class="stat"><div class="stat-n">3</div><div class="stat-l">Stars</div></div>
-      <div class="stat"><div class="stat-n">TYPESCRIPT</div><div class="stat-l">Primary Lang</div></div>
-      <div class="stat"><div class="stat-n">0</div><div class="stat-l">Followers</div></div>
+    <div class="stats" role="list" aria-label="GitHub stats">
+      <div class="stat" role="listitem"><div class="stat-n">18</div><div class="stat-l">Repositories</div></div>
+      <div class="stat" role="listitem"><div class="stat-n">3</div><div class="stat-l">Stars</div></div>
+      <div class="stat" role="listitem"><div class="stat-n">TYPESCRIPT</div><div class="stat-l">Primary Lang</div></div>
+      <div class="stat" role="listitem"><div class="stat-n">0</div><div class="stat-l">Followers</div></div>
     </div>
   </div>
 
-  <!-- ABOUT -->
+  <hr>
+
+  <!-- ═══ ABOUT ═══ -->
   <section id="about">
     <div class="w">
       <div class="eyebrow">[ 01 / ABOUT ]</div>
       <h2>I build systems that stay running.</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:1.5rem;">
+      <div class="two-col" style="gap:3rem;margin-top:1.5rem;">
         <p>IIT Mandi, 2019—2023. Since then I've been building and shipping across web, mobile, and AI — end-to-end, from database to deployment. I don't wait for someone else to own the full stack; I just build it.</p>
         <p>CTO at <a href="https://www.ryteproductions.in" style="color:var(--accent);border-bottom:1px solid var(--accent);">ryteproductions.in</a> — all IT operations, infrastructure, and product engineering. Currently building <a href="https://github.com/trippusultan/RoamReach" style="color:var(--accent);border-bottom:1px solid var(--accent);">RoamReach</a>, a real-time backpacker meetup app with Expo, Supabase, and Gemini AI.</p>
       </div>
       <p style="margin-top:1.5rem;color:var(--muted);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;">/core_values — SHIP_IT / KEEP_IT_SIMPLE / OBSERVE_EVERYTHING / FIX_IT_FAST</p>
     </div>
   </section>
+
   <hr>
-  <!-- EXPERIENCE -->
+
+  <!-- ═══ EXPERIENCE ═══ -->
   <section id="experience">
     <div class="w">
       <div class="eyebrow">[ 02 / EXPERIENCE ]</div>
       <h2 style="margin-bottom:3rem;">Work history.</h2>
+
       <div class="exp">
         <div class="exp-date">2025 — PRESENT</div>
         <div>
@@ -212,41 +472,70 @@
           </ul>
         </div>
       </div>
+
+      <hr style="margin:2rem 0;">
+
       <div class="exp">
         <div class="exp-date">2024 — 2025</div>
         <div>
           <div class="exp-role">Freelance App Developer</div>
-          <div class="exp-org">Independent</div>
+          <div class="exp-org">Independent contractor</div>
           <ul>
             <li>Built mobile and web apps for clients — React Native, Expo, Node.js, TypeScript.</li>
-            <li>Shipped end-to-end: design review → production deploys. No middleman.</li>
+            <li>Shipped end-to-end: design review → production deploys.</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
+
   <hr>
-  <!-- TECH STACK -->
+
+  <!-- ═══ TOOLING ═══ -->
   <section id="stack">
     <div class="w">
       <div class="eyebrow">[ 03 / TOOLING ]</div>
       <div class="tech-grid">
-        <div class="tech-cell"><div class="label">Languages</div><div class="tools"><span class="tool">TypeScript</span>  <span class="tool">Python</span>  <span class="tool">HTML</span>  <span class="tool">Dart</span></div></div>
-        <div class="tech-cell"><div class="label">Open-Source</div><div class="tools"><span class="tool">RoamReach</span>  <span class="tool">trippusultan.github.io</span>  <span class="tool">cric26</span>  <span class="tool">pypdf</span>  <span class="tool">pureflow</span></div></div>
-        <div class="tech-cell"><div class="label">Labels</div><div class="tools"><span class="tool">Open-Source</span><span class="tool">AI-Native</span><span class="tool">Full-Stack</span><span class="tool">Mobile</span></div></div>
-        <div class="tech-cell"><div class="label">DevOps</div><div class="tools"><span class="tool">Docker</span><span class="tool">Linux</span><span class="tool">GitHub Actions</span><span class="tool">Supabase</span><span class="tool">PostgreSQL</span></div></div>
-        <div class="tech-cell"><div class="label">AI</div><div class="tools"><span class="tool">LLMs</span><span class="tool">MCP</span><span class="tool">AI-Native</span><span class="tool">FastAPI</span></div></div>
-        <div class="tech-cell"><div class="label">Practices</div><div class="tools"><span class="tool">TDD</span><span class="tool">CI/CD</span><span class="tool">Clean-Architecture</span><span class="tool">DevEx</span></div></div>
+        <div class="tech-cell">
+          <div class="label">Languages</div>
+          <div class="tools"><span class="tool">TypeScript</span>  <span class="tool">Python</span>  <span class="tool">HTML</span>  <span class="tool">Dart</span></div>
+        </div>
+        <div class="tech-cell">
+          <div class="label">Open-Source</div>
+          <div class="tools"><span class="tool">RoamReach</span>  <span class="tool">trippusultan.github.io</span>  <span class="tool">cric26</span>  <span class="tool">pypdf</span>  <span class="tool">pureflow</span></div>
+        </div>
+        <div class="tech-cell">
+          <div class="label">Labels</div>
+          <div class="tools">
+            <span class="tool">Open-Source</span><span class="tool">AI-Native</span><span class="tool">Full-Stack</span><span class="tool">Mobile</span>
+          </div>
+        </div>
+        <div class="tech-cell">
+          <div class="label">DevOps</div>
+          <div class="tools"><span class="tool">Docker</span><span class="tool">Linux</span><span class="tool">GitHub Actions</span><span class="tool">Supabase</span><span class="tool">PostgreSQL</span></div>
+        </div>
+        <div class="tech-cell">
+          <div class="label">AI &amp; Agents</div>
+          <div class="tools"><span class="tool">LLMs</span><span class="tool">MCP</span><span class="tool">FastAPI</span><span class="tool">D3.js</span></div>
+        </div>
+        <div class="tech-cell">
+          <div class="label">Practices</div>
+          <div class="tools"><span class="tool">TDD</span><span class="tool">CI/CD</span><span class="tool">Clean-Architecture</span><span class="tool">DevEx</span></div>
+        </div>
       </div>
     </div>
   </section>
+
   <hr>
-  <!-- PROJECTS -->
+
+  <!-- ═══ PROJECTS ═══ -->
   <section id="projects">
     <div class="w">
       <div class="eyebrow">[ 04 / PROJECTS ]</div>
       <h2 style="margin-bottom:.25rem;">Open-source work.</h2>
-      <p style="margin-bottom:0;font-size:.7rem;color:var(--muted);">Live from GitHub · TYPESCRIPT · PYTHON · HTML · DART</p>
+      <p style="margin-bottom:0;font-size:.7rem;color:var(--muted);">
+        Live from GitHub · <span style="color:var(--accent);">TYPESCRIPT · PYTHON · HTML · DART</span>
+      </p>
             <div class="project">
         <div class="project-meta">
           <div>2026</div>
@@ -353,8 +642,10 @@
       </div>
     </div>
   </section>
+
   <hr>
-  <!-- CURRENT FOCUS -->
+
+  <!-- ═══ NOW / FOCUS ═══ -->
   <section id="focus">
     <div class="w">
       <div class="eyebrow">[ 05 / NOW ]</div>
@@ -368,33 +659,36 @@
         <div style="background:var(--canvas);padding:1.75rem;">
           <div style="font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;">02</div>
           <div style="font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;">archestra</div>
-          <div style="font-size:.72rem;color:var(--muted);line-height:1.75;">MCP-native AI platform for enterprise. Secure toolbox, observability, control — companies can actually adopt AI without the bloat.</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.75;">MCP-native AI platform for enterprise. Secure toolbox, observability, control.</div>
         </div>
         <div style="background:var(--canvas);padding:1.75rem;">
           <div style="font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;">03</div>
           <div style="font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;">reframe</div>
-          <div style="font-size:.72rem;color:var(--muted);line-height:1.75;">Free, open-source browser-based video editor. WebRTC + Canvas — no login, no uploads, no ads. Runs entirely client-side.</div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.75;">Free, open-source browser-based video editor. WebRTC + Canvas — no login, no uploads, no ads.</div>
         </div>
       </div>
     </div>
   </section>
+
   <hr>
-  <!-- CTA -->
+
+  <!-- ═══ CONTACT ═══ -->
   <section id="contact">
     <div class="w">
       <div class="eyebrow">[ 06 / CONTACT ]</div>
       <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;">
         <div>
           <h2>Get in touch.</h2>
-          <p style="margin-top:.75rem;max-width:38rem;">Open to freelance, full-time, and open-source collaboration.<br>Open a PR on any project or drop an email.</p>
+          <p style="margin-top:.75rem;max-width:38rem;">Open to freelance, full-time, and open-source collaboration. Open a PR on any project or drop an email.</p>
         </div>
-        <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;">
           <a href="mailto:sultantrippu@gmail.com" class="btn">Email →</a>
           <a href="https://github.com/trippusultan" class="btn btn-ghost">GitHub</a>
         </div>
       </div>
     </div>
   </section>
+
   <!-- FOOTER -->
   <footer>
     <span>© 2025 Abdul Taufeeq</span>
@@ -403,6 +697,12 @@
     <span style="opacity:.3">∥</span>
     <span>Built on black &amp; white</span>
   </footer>
+
+  <!-- CORNER COORDINATES -->
+  <div class="coord" aria-hidden="true">
+    <div>N 32.1093°</div>
+    <div>E 76.3451°</div>
+  </div>
 
 </body>
 </html>
