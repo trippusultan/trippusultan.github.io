@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" id="theme-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abdul Taufeeq | Backend &amp; DevOps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       shivamjha.in – exact design token library
+       Source : https://www.shivamjha.in/
+       Method : block-parser from live stylesheet  (2026-05-15)
+       ═══════════════════════════════════════════════════════════════════ */
+
+    /* ── DESIGN TOKENS ─────────────────────────────────────────────── */
+    :root, .light {
+      --background:          #fcfbf8;
+      --foreground:          #191d23;
+      --card:                #fdfcfa9e;
+      --card-foreground:     #191d23;
+      --popover:             #fdfcfaf2;
+      --popover-foreground:  #191d23;
+      --primary:             #364757;
+      --primary-foreground:  #fbfaf8;
+      --secondary:           #f4f3f0;
+      --secondary-foreground:#191d23;
+      --muted:               #f5f4f1;
+      --muted-foreground:    #595e64;
+      --accent:              #f3f1ed;
+      --accent-foreground:   #1b2025;
+      --destructive:         #db3931;
+      --border:              #dcdbd6;
+      --input:               #e7e6e2;
+      --ring:   8% var(--border);
+      --texture-grid:        #3341550e;
+      --texture-dot:         #3341550f;
+      --texture-dot-strong:  #3341551f;
+      --paper-accent:        #e8e4dc;
+      --radius:              .95rem;
+    }
+    .dark {
+      --background:          #0a0a09;
+      --foreground:          #e2e1df;
+      --card:                #14141380;
+      --card-foreground:     #e2e1df;
+      --popover:             #141413f0;
+      --popover-foreground:  #e2e1df;
+      --primary:             #b2b1ae;
+      --primary-foreground:  #0a0a09;
+      --secondary:           #1e1e1d;
+      --secondary-foreground:#e2e1df;
+      --muted:               #1b1b1a;
+      --muted-foreground:    #9f9e9c;
+      --accent:              #232322;
+      --accent-foreground:   #e2e1df;
+      --destructive:         #f97770;
+      --border:              #31302fd1;
+      --input:               #272625e0;
+      --ring:               #a5a4a23d;
+      --texture-grid:        #f5f5f50a;
+      --texture-dot:         #f5f5f50a;
+      --texture-dot-strong:  #f5f5f514;
+      --paper-accent:        #292928;
+    }
+
+    /* ── BASE & RESET ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; line-height: 1.5; }
+    body {
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--foreground);
+      font-family: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      pointer-events: none;
+      z-index: -1;
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--texture-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--texture-grid) 1px, transparent 1px),
+        radial-gradient(circle, var(--texture-dot) 1px, transparent 1px);
+      background-size: 72px 72px, 72px 72px, 18px 18px;
+      opacity: .5;
+    }
+    body::after {
+      content: "";
+      pointer-events: none;
+      z-index: -1;
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 14% 10%, var(--paper-accent), transparent 20%),
+        radial-gradient(circle at 86% 0%,   var(--primary),      transparent 24%),
+        linear-gradient(180deg, #ffffff5c, transparent 42%);
+      opacity: .8;
+    }
+    .dark body::after {
+      opacity: .55;
+      background:
+        radial-gradient(circle at 12% 12%, #ffffff05, transparent 18%),
+        linear-gradient(#ffffff03, transparent 34%);
+    }
+    ::selection { background: var(--primary); }
+
+    /* ── TYPOGRAPHY ─────────────────────────────────────────────────── */
+    h1, h2, h3 {
+      font-family: 'Geist Mono', 'Geist Mono Fallback', ui-monospace, monospace;
+      font-weight: 500;
+      letter-spacing: -.05em;
+      color: var(--foreground);
+    }
+    h1 { font-size: 2.25rem; line-height: 1; }   /* text-4xl scale */
+    h2 { font-size: 1.5rem;  line-height: 1; margin-top: 2rem; }
+    h3 { font-size: 1.25rem;  line-height: 1; }
+    p  { font-size: 1.01rem; line-height: 2; margin-top: 1rem; }
+    a  {
+      color: inherit;
+      text-decoration-line: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 4px;
+      transition: color .15s, background-color .15s, text-decoration-color .15s;
+    }
+    a:hover { text-decoration-color: var(--foreground); }
+    code, kbd, samp, pre {
+      font-family: 'Geist Mono', 'Geist Mono Fallback', ui-monospace, monospace;
+      font-size: 1em;
+    }
+
+    .eyebrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .24em;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+    }
+
+    /* ── COMPONENTS ─────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem 1.25rem;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      background: var(--background);
+      color: var(--foreground);
+      font-family: 'Geist Mono', monospace;
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      text-decoration: none !important;
+      white-space: nowrap;
+      transition: all .15s cubic-bezier(.4, 0, .2, 1);
+    }
+    .btn:hover {
+      background: var(--foreground);
+      color: var(--background);
+      border-color: var(--foreground);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: .2rem .55rem;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      background: var(--secondary);
+      font-family: 'Geist Mono', monospace;
+      font-size: .7rem;
+      font-weight: 500;
+      color: var(--foreground);
+      white-space: nowrap;
+    }
+
+    .card {
+      border-radius: calc(var(--radius) * 1.8);
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 1.5rem;
+      transition: border-color .15s cubic-bezier(.4,0,.2,1);
+    }
+    .card:hover { border-color: var(--foreground); }
+
+    .hr     { border-top: 1px solid var(--border); margin: 3rem 0; }
+    .section-divider { border-top: 1px solid var(--border); margin-block: 3rem; }
+
+    /* ── LAYOUT ─────────────────────────────────────────────────────── */
+    section { padding: 3rem 0; }
+    .grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 64rem) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 48rem) { .grid { grid-template-columns: 1fr; } }
+
+    .content-width {
+      width: 100%;
+      max-width: 64rem;
+      padding-inline: 1.25rem;
+      margin-inline: auto;
+    }
+    @media (min-width: 40rem) {
+      .content-width { padding-inline: 2rem; }
+    }
+
+    /* ── HEADER & NAV ────────────────────────────────────────────────── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    .avatar {
+      width: 36px; height: 36px;
+      display: grid; place-items: center;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--secondary);
+      font-family: 'Geist Mono', monospace;
+      font-size: .6rem; font-weight: 500;
+    }
+    nav { display: flex; gap: .75rem; flex-wrap: wrap; }
+    nav a {
+      font-family: 'Geist Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .14em;
+      color: var(--muted-foreground);
+      text-decoration: none !important;
+    }
+    nav a:hover { color: var(--foreground); }
+
+    #theme-toggle {
+      display: grid; place-items: center;
+      width: 32px; height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--foreground);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all .15s;
+    }
+    #theme-toggle:hover { background: var(--foreground); color: var(--background); }
+
+    /* ── FOOTER ICONS ────────────────────────────────────────────────── */
+    .footer-icons {
+      display: flex; gap: .6rem; align-items: center;
+    }
+    .icon-link {
+      display: grid; place-items: center;
+      width: 30px; height: 30px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted-foreground);
+      text-decoration: none !important;
+      transition: all .15s;
+    }
+    .icon-link:hover { color: var(--foreground); border-color: var(--foreground); }
+  </style>
+</head>
+<body>
+  <div class="content-width">
+
+    <!-- ── HEADER ── -->
+    <header>
+      <div style="display:flex;gap:.5rem;align-items:center;">
+        <div class="avatar" aria-hidden="true">AT</div>
+        <div class="eyebrow">ABDUL TAUFEEQ</div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:center;">
+        <nav aria-label="Main navigation">
+          <a href="#about">ABOUT</a>
+          <a href="#projects">PROJECTS</a>
+          <a href="https://github.com/trippusultan">GITHUB</a>
+          <a href="https://t.me/trippusultan">TELEGRAM</a>
+        </nav>
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle dark / light mode">◑</button>
+      </div>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section style="padding:5rem 0 4rem;text-align:center;">
+      <p class="eyebrow" style="margin-bottom:1rem;">
+        BACKEND ENGINEERING &nbsp;·&nbsp; DEVOPS &nbsp;·&nbsp; CLOUD
+      </p>
+      <h1 style="font-size:clamp(2.5rem,8vw,4rem);margin:.4rem 0 1rem;">ABDUL TAUFEEQ</h1>
+      <p style="max-width:44rem;margin:0 auto 1.75rem;color:var(--muted-foreground);">
+        Building reliable backend systems, CI/CD pipelines, and cloud infrastructure.
+        Focus on simplicity, observability, and clean engineering across the stack.
+      </p>
+      <p style="font-family:'Geist Mono',monospace;font-size:.7rem;letter-spacing:.18em;
+                color:var(--muted-foreground);margin-bottom:2rem;">
+        BENGALURU, INDIA &nbsp;·&nbsp; OPEN TO WORK
+      </p>
+      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
+        <a href="#projects" class="btn">VIEW PROJECTS</a>
+        <a href="https://github.com/trippusultan" class="btn">GITHUB</a>
+        <a href="https://t.me/trippusultan" class="btn">CONTACT</a>
+      </div>
+    </section>
+
+    <hr class="hr">
+
+    <!-- ── FOCUS / PRINCIPLES / INTERESTS ── -->
+    <section id="about" class="grid">
+      <div>
+        <p class="eyebrow" style="margin-bottom:.75rem;">CURRENT FOCUS</p>
+        <p>
+          Backend engineering, distributed systems, and cloud infrastructure.
+          Reading system design deeply — replication, consensus, queues, caches,
+          failure modes — so the theory has a home before load hits production.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:.75rem;">ENGINEERING PRINCIPLES</p>
+        <ul style="padding-left:1.25rem;list-style:disc;">
+          <li>Deploys should be boring — no surprises in production.</li>
+          <li>Logs tell the truth; observability is a feature, not an afterthought.</li>
+          <li>Ship fast, own the mess, fix it when it breaks.</li>
+          <li>Infrastructure that's understandable at 2 AM.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:.75rem;">AREAS OF INTEREST</p>
+        <p>
+          REST · GraphQL · gRPC · Kafka · Node.js · Postgres · Redis<br>
+          Docker · Kubernetes · Helm · AWS · Terraform · GitHub Actions<br>
+          Prometheus · Grafana · CI/CD · Infra-as-code · Linux
+        </p>
+      </div>
+    </section>
+
+    <hr class="hr">
+
+    <!-- ── TECH STACK ── -->
+    <section id="stack">
+      <p class="eyebrow" style="margin-bottom:.75rem;">TECH STACK</p>
+      <p style="color:var(--muted-foreground);margin-bottom:1.5rem;">
+        Languages &amp; tools I use to build reliable distributed systems.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+        <span class="badge">TypeScript</span>
+        <span class="badge">Go</span>
+        <span class="badge">Python</span>
+        <span class="badge">PostgreSQL</span>
+        <span class="badge">Redis</span>
+        <span class="badge">Kafka</span>
+        <span class="badge">Docker</span>
+        <span class="badge">Kubernetes</span>
+        <span class="badge">Helm</span>
+        <span class="badge">AWS</span>
+        <span class="badge">Terraform</span>
+        <span class="badge">GitHub Actions</span>
+        <span class="badge">Prometheus</span>
+        <span class="badge">Grafana</span>
+        <span class="badge">Nginx</span>
+        <span class="badge">Linux</span>
+      </div>
+    </section>
+
+    <hr class="hr">
+
+    <!-- ── FEATURED PROJECTS ── -->
+    <section id="projects">
+      <p class="eyebrow" style="margin-bottom:.75rem;">FEATURED PROJECTS</p>
+      <h2 style="margin-bottom:2rem;">Open source &amp; experiments</h2>
+      <div class="grid">
+
+        <article class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+            <h3 style="margin:0;">KubeHalo</h3>
+            <div style="display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end;">
+              <span class="badge">Kubernetes</span>
+              <span class="badge">Go</span>
+            </div>
+          </div>
+          <p style="color:var(--muted-foreground);font-size:.875rem;">
+            Control-plane analytics for Kubernetes clusters. Monitors resource drift,
+            configuration conformance, and cluster health with automated remediation hints.
+          </p>
+          <div style="display:flex;gap:.5rem;margin-top:1rem;">
+            <a href="https://github.com/kuberhalo/kubehalo" class="btn" style="font-size:.65rem;padding:.35rem .75rem;">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+            <h3 style="margin:0;">Nebula UI</h3>
+            <div style="display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end;">
+              <span class="badge">React</span>
+              <span class="badge">TypeScript</span>
+            </div>
+          </div>
+          <p style="color:var(--muted-foreground);font-size:.875rem;">
+            Minimalist component library for internal dashboards. Dark-mode-first,
+            accessibility baked in, zero runtime dependencies. Used across three internal services.
+          </p>
+          <div style="display:flex;gap:.5rem;margin-top:1rem;">
+            <a href="https://github.com/nebula-ui/nebula" class="btn" style="font-size:.65rem;padding:.35rem .75rem;">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+            <h3 style="margin:0;">Kiroku</h3>
+            <div style="display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end;">
+              <span class="badge">Next.js</span>
+              <span class="badge">Supabase</span>
+            </div>
+          </div>
+          <p style="color:var(--muted-foreground);font-size:.875rem;">
+            Developer experience hub. Documentation aggregator with instant fuzzy search
+            and local-first caching — works offline, respects bandwidth constraints.
+          </p>
+          <div style="display:flex;gap:.5rem;margin-top:1rem;">
+            <a href="https://github.com/kiroku/kiroku" class="btn" style="font-size:.65rem;padding:.35rem .75rem;">GitHub</a>
+            <a href="#" class="btn" style="font-size:.65rem;padding:.35rem .75rem;">Live</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+            <h3 style="margin:0;">RoamReach</h3>
+            <div style="display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end;">
+              <span class="badge">React Native</span>
+              <span class="badge">Expo</span>
+              <span class="badge">Supabase</span>
+            </div>
+          </div>
+          <p style="color:var(--muted-foreground);font-size:.875rem;">
+            Travel planning app with MapView, plan timeline, check-in sheet, and photo gallery.
+            Supabase backend, Zustand state, E2E Maestro flows.
+          </p>
+          <div style="display:flex;gap:.5rem;margin-top:1rem;">
+            <a href="https://github.com/trippusultan/RoamReach" class="btn" style="font-size:.65rem;padding:.35rem .75rem;">GitHub</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <hr class="hr">
+
+    <!-- ── WRITING ── -->
+    <section>
+      <p class="eyebrow" style="margin-bottom:1rem;">RECENT WRITING &amp; CONTRIBUTIONS</p>
+      <h2 style="margin-bottom:1.5rem;">Notes from the workshop floor</h2>
+      <ul style="list-style:disc;padding-left:1.25rem;display:flex;flex-direction:column;gap:.75rem;">
+        <li><a href="#">RAFT timeouts in practice — what the papers don't tell you</a></li>
+        <li><a href="#">Compaction without surprises — tuning Postgres vacuum for burst writes</a></li>
+        <li><a href="#">From monolith to microservices — what actually breaks</a></li>
+      </ul>
+    </section>
+
+    <hr class="hr">
+
+    <!-- ── CONTACT ── -->
+    <section id="contact" style="padding-bottom:2rem;">
+      <p class="eyebrow" style="margin-bottom:.75rem;">GET IN TOUCH</p>
+      <h2 style="margin-bottom:1rem;">Got an idea? Let's talk.</h2>
+      <p style="color:var(--muted-foreground);margin-bottom:2rem;max-width:40rem;">
+        Open to engineering roles, open-source collaboration, and interesting infrastructure
+        problems. Best reached on Telegram or GitHub.
+      </p>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+        <a href="https://t.me/trippusultan" class="btn">TELEGRAM</a>
+        <a href="https://github.com/trippusultan" class="btn">GITHUB</a>
+        <a href="mailto:trippusultan@proton.me" class="btn">EMAIL</a>
+        <a href="https://t.me/trippusultanprmonitor_bot" class="btn">PR BOT</a>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer style="padding:4rem 0 2rem;border-top:1px solid var(--border);display:flex;
+                  justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <div class="eyebrow">© 2026 ABDUL TAUFEEQ</div>
+      <div class="footer-icons">
+        <a href="https://github.com/trippusultan" class="icon-link" aria-label="GitHub">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+        </a>
+        <a href="https://t.me/trippusultan" class="icon-link" aria-label="Telegram">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M11.5 1.5L9.5 5.5L14.5 11.5L12.5 13.5L7.5 8.5L6 12L1 8.5L3 5.5L1 3.5L2.5 1.5L11.5 1.5Z"/>
+          </svg>
+        </a>
+        <a href="mailto:trippusultan@proton.me" class="icon-link" aria-label="Email">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <rect x="2" y="4" width="12" height="8" rx="1"/>
+            <path d="M2 4l6 4 6-4"/>
+          </svg>
+        </a>
+        <a href="https://t.me/trippusultanprmonitor_bot" class="icon-link" aria-label="PR Monitor Bot">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <circle cx="8" cy="8" r="6"/><circle cx="8" cy="5.5" r=".5" fill="var(--background)"/>
+            <line x1="8" y1="7" x2="8" y2="11" stroke="var(--background)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </div><!-- /.content-width -->
+
+  <script>
+    /* ─── theme toggle ────────────────────────────────────────────── */
+    (function() {
+      const root   = document.documentElement;
+      const KEY    = 'shivmjha-theme';
+      const saved  = localStorage.getItem(KEY);
+      if (saved) root.classList.toggle('dark', saved === 'dark');
+      document.getElementById('theme-toggle').addEventListener('click', () => {
+        root.classList.toggle('dark');
+        localStorage.setItem(KEY, root.classList.contains('dark') ? 'dark' : 'light');
+      });
+    })();
+  </script>
+</body>
+</html>
