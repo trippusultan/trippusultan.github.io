@@ -263,26 +263,97 @@
     .reveal.in{opacity:1;transform:translateY(0)}
 
     /* ── RESPONSIVE ──────────────────────────────────── */
+
+    /* 900px — tablet: all multi-col collapses, hero reflows */
     @media(max-width:900px){
       .two-col{grid-template-columns:1fr}
       .tech-grid{grid-template-columns:repeat(2,1fr)}
-      .project{grid-template-columns:1fr;gap:.4rem}
+      .project{grid-template-columns:1fr;gap:.4rem;grid-template-columns:1fr}
       .project-cta{display:none}
+      .focus-num{margin-bottom:.5rem}
       .focus-grid{grid-template-columns:repeat(2,1fr)}
+      .hero{padding:2.5rem 0 3.5rem}
+      .hero h1{margin-bottom:1.8rem}
+      section{padding:2.5rem 0}
     }
+
+    /* 767px — mobile: nav, topbar, register strip, footer, footer */
+    @media(max-width:767px){
+
+      /* topbar: wrap or hide name to save height */
+      .topbar-left{flex-wrap:wrap;gap:.4rem}
+      .topbar-name{max-width:45%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+      .topbar-status{gap:.35rem;font-size:.64rem}
+
+      /* register strip: shrink, wrap */
+      .register{flex-wrap:wrap;gap:.5rem;padding:.38rem 1.15rem;font-size:.6rem}
+
+      /* nav: full-width tap targets */
+      nav{padding:.75rem 1rem;flex-wrap:wrap;gap:.4rem}
+      nav a{margin-left:0;margin-right:.65rem;font-size:.68rem;padding:.28rem 0;border-bottom:1px solid transparent}
+      nav a:hover{border-bottom-color:var(--accent)}
+
+      /* hero meta: ensure full-width stack */
+      .hero-meta{padding-top:0;gap:.9rem}
+      .meta{font-size:.76rem}
+
+      /* hero icon buttons: touch target */
+      .hero-sub a[href^="https"]{
+        min-height:44px;display:inline-flex;align-items:center;
+      }
+
+      /* exp: stack date above role */
+      .exp{grid-template-columns:1fr;gap:.3rem 0}
+      .exp-date{text-align:left;white-space:normal;padding-top:0;min-width:0;margin-bottom:.15rem}
+      .exp ul li{padding-left:.8rem;margin-bottom:.4rem}
+
+      /* focus cards: single column */
+      .focus-title{margin-bottom:.4rem}
+      .focus-desc{line-height:1.7}
+
+      /* project link: full-width block */
+      .project-link{display:block;margin-top:.3rem}
+
+      /* cta strip */
+      .hero .btn-row{flex-direction:column;gap:.45rem}
+
+      /* about two-col in the About section */
+      #about .two-col .about-sub-grid{
+        grid-template-columns:1fr !important;
+      }
+    }
+
+    /* 640px — compact phone */
     @media(max-width:640px){
       .tech-grid{grid-template-columns:1fr}
       .focus-grid{grid-template-columns:1fr}
       .stats{grid-template-columns:repeat(2,1fr)}
-      .topbar{padding:.5rem 1rem}
-      .register{padding:.4rem 1rem;gap:.8rem;font-size:.6rem}
-      nav{padding:.85rem 1rem}
-      nav a{margin-left:1rem}
-      .btn{padding:.52rem .9rem;font-size:.72rem}
+      .topbar{padding:.42rem .85rem}
+      .register{padding:.35rem .85rem;gap:.55rem;font-size:.58rem}
+      nav{padding:.65rem .85rem}
+      nav a{margin-right:.5rem;font-size:.66rem}
+      .btn{padding:.52rem .9rem;font-size:.72rem;min-height:44px}
+      section{padding:2rem 0}
+      h2{margin-bottom:2rem}
     }
+
+    /* 480px — large phone */
     @media(max-width:480px){
       .stats{gap:0}
       .stat{padding:.85rem 1rem}
+      .stat-n{font-size:1.6rem}
+      .btn{padding:.52rem .8rem;font-size:.7rem}
+      .topbar-name{max-width:35%}
+      .topbar-status{font-size:.6rem}
+    }
+
+    /* 360px — phone SE */
+    @media(max-width:360px){
+      html{font-size:16px}
+      .w{padding-inline:.9rem}
+      h1{letter-spacing:-.05em}
+      .btn{width:100%;justify-content:center}
+      section{padding:2rem 0}
     }
   </style>
 </head>
