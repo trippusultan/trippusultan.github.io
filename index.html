@@ -1,1128 +1,477 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Abdul Taufeeq — Full-stack & AI engineer. Building across web, mobile, open-source & AI." />
   <title>Abdul Taufeeq — Full-Stack & AI Engineer</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
   <style>
-    /* ═══════════════════════════════════════════════════════════════════
-       CSS RESET & VARIABLES
-       ═══════════════════════════════════════════════════════════════════ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #000000;
+      --bg: #0C0C0C;
+      --bg2: #000000;
       --fg: #D7E2EA;
-      --muted: #71767b;
-      --muted2: #536471;
-      --border: #2f3336;
-      --card: #16181c;
-      --card2: #1d1f23;
-      --accent: #1d9bf0;
-      --accent-hover: #1a8cd8;
-      --green: #00ba7c;
-      --red: #f91880;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --max-w: 680px;
+      --white: #FFFFFF;
+      --dark: #0C0C0C;
+      --border: rgba(215, 226, 234, 0.15);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    [data-theme="light"] {
-      --bg: #f7f9f9;
-      --fg: #0f1419;
-      --muted: #536471;
-      --border: #eff3f4;
-      --card: #ffffff;
-      --card2: #f0f3f4;
-    }
-
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
-    }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    /* ═══════════════════════════════════════════════════════════════════
-       FADE-IN ANIMATION SYSTEM (Hero)
-       ═══════════════════════════════════════════════════════════════════ */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(var(--fade-y, 20px));
-      transition: opacity 0.8s cubic-bezier(.4,0,.2,1),
-                  transform 0.8s cubic-bezier(.4,0,.2,1);
-      transition-delay: var(--fade-delay, 0s);
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* ═══ FADE-IN ═══ */
+    .fade-in { opacity: 0; transform: translateY(var(--fade-y, 30px)) translateX(var(--fade-x, 0)); transition: opacity var(--fade-dur, 0.7s) ease, transform var(--fade-dur, 0.7s) ease; transition-delay: var(--fade-delay, 0s); }
+    .fade-in.visible { opacity: 1; transform: translateY(0) translateX(0); }
 
-    /* ═══════════════════════════════════════════════════════════════════
-       HERO SECTION
-       ═══════════════════════════════════════════════════════════════════ */
-    .hero {
-      position: relative;
-      height: 100vh;
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: clip;
-      overflow-y: hidden;
-    }
-
-    /* Navbar */
-    .hero-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 1.5rem 0;
-      flex-shrink: 0;
-    }
-    @media (min-width: 768px) {
-      .hero-nav { padding: 2rem 2.5rem 0; }
-    }
-
-    .nav-links {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      gap: 1rem;
-    }
-
-    .nav-link {
-      color: var(--fg);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: 0.8rem;
-      opacity: 1;
-      transition: opacity 200ms ease;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-family: inherit;
-      padding: 0;
-      flex-shrink: 0;
-    }
+    /* ═══ HERO ═══ */
+    .hero { position: relative; height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow-x: clip; overflow-y: hidden; }
+    .hero-nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 1.5rem 0; flex-shrink: 0; }
+    @media (min-width: 768px) { .hero-nav { padding: 2rem 2.5rem 0; } }
+    .nav-links { display: flex; justify-content: space-between; align-items: center; width: 100%; list-style: none; padding: 0; margin: 0; gap: 1rem; }
+    .nav-link { color: var(--fg); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.8rem; transition: opacity 200ms ease; cursor: pointer; background: none; border: none; font-family: inherit; padding: 0; flex-shrink: 0; }
     .nav-link:hover { opacity: 0.7; }
+    @media (min-width: 768px) { .nav-link { font-size: 1rem; letter-spacing: 0.08em; } }
+    @media (min-width: 1024px) { .nav-link { font-size: 1.4rem; letter-spacing: 0.1em; } }
+    .hero-heading-wrap { overflow: hidden; flex: 1; display: flex; align-items: center; justify-content: center; position: relative; z-index: 20; }
+    .hero-heading { font-weight: 900; text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.9; white-space: nowrap; width: 100%; text-align: center; font-size: clamp(3.5rem, 14vw, 12rem); margin-top: 1.5rem; background: linear-gradient(135deg, #D7E2EA 0%, #ffffff 50%, #D7E2EA 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    @media (min-width: 640px) { .hero-heading { font-size: clamp(4rem, 15vw, 14rem); margin-top: 1rem; } }
+    @media (min-width: 768px) { .hero-heading { font-size: clamp(5rem, 16vw, 16rem); margin-top: -1.25rem; } }
+    @media (min-width: 1024px) { .hero-heading { font-size: clamp(6rem, 17.5vw, 18rem); } }
+    .hero-portrait { position: absolute; left: 50%; transform: translateX(-50%); z-index: 10; width: 280px; pointer-events: none; }
+    .hero-portrait img { width: 100%; height: auto; display: block; }
+    @media (max-width: 639px) { .hero-portrait { top: 50%; transform: translate(-50%, -50%); } }
+    @media (min-width: 640px) { .hero-portrait { top: auto; bottom: 0; width: 360px; } }
+    @media (min-width: 768px) { .hero-portrait { width: 440px; } }
+    @media (min-width: 1024px) { .hero-portrait { width: 520px; } }
+    .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; padding: 0 1.5rem 1.75rem; position: relative; z-index: 20; flex-shrink: 0; }
+    @media (min-width: 640px) { .hero-bottom { padding: 0 1.5rem 2rem; } }
+    @media (min-width: 768px) { .hero-bottom { padding: 0 2.5rem 2.5rem; } }
+    .hero-bottom-left { color: var(--fg); font-weight: 300; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.3; font-size: clamp(0.75rem, 1.4vw, 1.5rem); max-width: 160px; }
+    @media (min-width: 640px) { .hero-bottom-left { max-width: 220px; } }
+    @media (min-width: 768px) { .hero-bottom-left { max-width: 260px; } }
+    .contact-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.5rem; border: 1px solid var(--fg); border-radius: 9999px; color: var(--fg); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; background: transparent; cursor: pointer; transition: background 200ms ease, color 200ms ease; font-family: var(--font); white-space: nowrap; }
+    .contact-btn:hover { background: var(--fg); color: var(--bg); }
+    @media (min-width: 768px) { .contact-btn { padding: 0.75rem 2rem; font-size: 0.9rem; } }
 
-    @media (min-width: 768px) {
-      .nav-link { font-size: 1rem; letter-spacing: 0.08em; }
-    }
-    @media (min-width: 1024px) {
-      .nav-link { font-size: 1.4rem; letter-spacing: 0.1em; }
-    }
+    /* ═══ MARQUEE ═══ */
+    .marquee-section { background: #0C0C0C; padding-top: 6rem; padding-top: clamp(4rem, 8vw, 10rem); padding-bottom: 2.5rem; overflow: hidden; }
+    .marquee-row { display: flex; gap: 0.75rem; will-change: transform; }
+    .marquee-row + .marquee-row { margin-top: 0.75rem; }
+    .marquee-tile { flex-shrink: 0; width: 420px; height: 270px; border-radius: 1rem; object-fit: cover; }
 
-    /* Hero Heading */
-    .hero-heading-wrap {
-      overflow: hidden;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 20;
-    }
+    /* ═══ ABOUT ═══ */
+    .about-section { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 1.25rem; }
+    @media (min-width: 640px) { .about-section { padding: 5rem 2rem; } }
+    @media (min-width: 768px) { .about-section { padding: 5rem 2.5rem; } }
+    .about-corner { position: absolute; pointer-events: none; z-index: 0; }
+    .about-corner-tl { top: 4%; left: 1%; width: 120px; }
+    @media (min-width: 640px) { .about-corner-tl { left: 2%; width: 160px; } }
+    @media (min-width: 768px) { .about-corner-tl { left: 4%; width: 210px; } }
+    .about-corner-bl { bottom: 8%; left: 3%; width: 100px; }
+    @media (min-width: 640px) { .about-corner-bl { left: 6%; width: 140px; } }
+    @media (min-width: 768px) { .about-corner-bl { left: 10%; width: 180px; } }
+    .about-corner-tr { top: 4%; right: 1%; width: 120px; }
+    @media (min-width: 640px) { .about-corner-tr { right: 2%; width: 160px; } }
+    @media (min-width: 768px) { .about-corner-tr { right: 4%; width: 210px; } }
+    .about-corner-br { bottom: 8%; right: 3%; width: 130px; }
+    @media (min-width: 640px) { .about-corner-br { right: 6%; width: 170px; } }
+    @media (min-width: 768px) { .about-corner-br { right: 10%; width: 220px; } }
+    .about-content { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: clamp(1.5rem, 3vw, 2.5rem); }
+    .about-heading { font-weight: 900; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.04em; text-align: center; font-size: clamp(3rem, 12vw, 10rem); background: linear-gradient(135deg, #D7E2EA 0%, #ffffff 50%, #D7E2EA 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .about-text { color: var(--fg); font-weight: 500; text-align: center; line-height: 1.7; max-width: 560px; font-size: clamp(1rem, 2vw, 1.35rem); }
+    .about-text .char { opacity: 0.2; transition: opacity 0.1s ease; }
+    .about-text .char.active { opacity: 1; }
 
-    .hero-heading {
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.04em;
-      line-height: 0.9;
-      white-space: nowrap;
-      width: 100%;
-      text-align: center;
-      font-size: clamp(3.5rem, 14vw, 12rem);
-      margin-top: 1.5rem;
-      background: linear-gradient(135deg, #D7E2EA 0%, #ffffff 50%, #D7E2EA 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    /* ═══ SERVICES ═══ */
+    .services-section { background: #FFFFFF; border-radius: clamp(2rem, 4vw, 3.75rem) clamp(2rem, 4vw, 3.75rem) 0 0; padding: 5rem 1.25rem; }
+    @media (min-width: 640px) { .services-section { padding: 6rem 2rem; } }
+    @media (min-width: 768px) { .services-section { padding: 8rem 2.5rem; } }
+    .services-heading { font-weight: 900; text-transform: uppercase; text-align: center; font-size: clamp(3rem, 12vw, 10rem); color: #0C0C0C; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+    .services-list { max-width: 68rem; margin: 0 auto; display: flex; flex-direction: column; }
+    .service-item { display: flex; align-items: flex-start; gap: clamp(1rem, 3vw, 2rem); padding: 2rem 0; border-bottom: 1px solid rgba(12, 12, 12, 0.15); }
+    @media (min-width: 640px) { .service-item { padding: 2.5rem 0; } }
+    @media (min-width: 768px) { .service-item { padding: 3rem 0; } }
+    .service-item:last-child { border-bottom: none; }
+    .service-num { font-weight: 900; font-size: clamp(2.5rem, 8vw, 8.75rem); color: #0C0C0C; line-height: 1; flex-shrink: 0; min-width: clamp(3rem, 8vw, 7rem); }
+    .service-info { flex: 1; }
+    .service-name { font-weight: 500; text-transform: uppercase; font-size: clamp(1rem, 2.2vw, 2.1rem); color: #0C0C0C; margin-bottom: 0.5rem; }
+    .service-desc { font-weight: 300; line-height: 1.7; max-width: 42rem; font-size: clamp(0.85rem, 1.6vw, 1.25rem); color: rgba(12, 12, 12, 0.6); }
 
-    @media (min-width: 640px) {
-      .hero-heading { font-size: clamp(4rem, 15vw, 14rem); margin-top: 1rem; }
-    }
-    @media (min-width: 768px) {
-      .hero-heading { font-size: clamp(5rem, 16vw, 16rem); margin-top: -1.25rem; }
-    }
-    @media (min-width: 1024px) {
-      .hero-heading { font-size: clamp(6rem, 17.5vw, 18rem); }
-    }
+    /* ═══ PROJECTS ═══ */
+    .projects-section { background: #0C0C0C; border-radius: clamp(2rem, 4vw, 3.75rem) clamp(2rem, 4vw, 3.75rem) 0 0; margin-top: clamp(-2.5rem, -3vw, -3.5rem); position: relative; z-index: 10; padding: 5rem 1.25rem 2rem; }
+    @media (min-width: 640px) { .projects-section { padding: 6rem 2rem 2rem; } }
+    @media (min-width: 768px) { .projects-section { padding: 8rem 2.5rem 2rem; } }
+    .projects-heading { font-weight: 900; text-transform: uppercase; text-align: center; font-size: clamp(3rem, 12vw, 10rem); background: linear-gradient(135deg, #D7E2EA 0%, #ffffff 50%, #D7E2EA 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+    .project-card-wrap { height: 85vh; position: sticky; top: 6rem; }
+    @media (min-width: 768px) { .project-card-wrap { top: 8rem; } }
+    .project-card { border-radius: clamp(1.5rem, 3vw, 3.75rem); border: 2px solid var(--fg); background: #0C0C0C; padding: 1rem; height: 100%; display: flex; flex-direction: column; gap: 1rem; transform-origin: top center; }
+    @media (min-width: 640px) { .project-card { padding: 1.5rem; } }
+    @media (min-width: 768px) { .project-card { padding: 2rem; } }
+    .project-card-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .project-num { font-weight: 900; font-size: clamp(2.5rem, 8vw, 8.75rem); color: var(--fg); line-height: 1; }
+    .project-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+    .project-category { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg); opacity: 0.6; }
+    .project-name { font-weight: 700; font-size: clamp(1rem, 2vw, 1.5rem); color: var(--fg); }
+    .live-btn { display: inline-flex; align-items: center; padding: 0.65rem 1.5rem; border-radius: 9999px; border: 2px solid var(--fg); color: var(--fg); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; background: transparent; cursor: pointer; transition: background 200ms ease; white-space: nowrap; }
+    .live-btn:hover { background: rgba(215, 226, 234, 0.1); }
+    @media (min-width: 640px) { .live-btn { padding: 0.75rem 2rem; font-size: 0.875rem; } }
+    .project-images { display: flex; gap: 1rem; flex: 1; min-height: 0; }
+    .project-col-left { width: 40%; display: flex; flex-direction: column; gap: 1rem; }
+    .project-col-right { width: 60%; }
+    .project-img { border-radius: clamp(1.5rem, 3vw, 3.75rem); object-fit: cover; width: 100%; }
+    .project-img-tall { height: 100%; }
+    .img-placeholder { background: rgba(215, 226, 234, 0.08); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: rgba(215, 226, 234, 0.3); text-transform: uppercase; letter-spacing: 0.1em; }
 
-    /* Hero Portrait (Magnet) */
-    .hero-portrait {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      width: 280px;
-      pointer-events: none;
-    }
-    .hero-portrait img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+    /* ═══ CONTACT ═══ */
+    .contact-section { background: #0C0C0C; padding: 5rem 1.25rem; text-align: center; }
+    @media (min-width: 768px) { .contact-section { padding: 8rem 2.5rem; } }
+    .contact-heading { font-weight: 900; text-transform: uppercase; font-size: clamp(2.5rem, 8vw, 8rem); background: linear-gradient(135deg, #D7E2EA 0%, #ffffff 50%, #D7E2EA 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 2rem; }
+    .contact-sub { color: var(--fg); font-weight: 300; font-size: clamp(1rem, 2vw, 1.35rem); max-width: 36rem; margin: 0 auto 3rem; opacity: 0.7; }
+    .contact-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 2rem; border-radius: 9999px; background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%); color: white; font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border: 2px solid white; outline-offset: -3px; box-shadow: 0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset; transition: opacity 200ms ease; font-family: var(--font); white-space: nowrap; text-decoration: none; }
+    .contact-pill:hover { opacity: 0.85; }
+    @media (min-width: 640px) { .contact-pill { padding: 0.875rem 2.5rem; font-size: 0.875rem; } }
+    @media (min-width: 768px) { .contact-pill { padding: 1rem 3rem; font-size: 1rem; } }
 
-    @media (max-width: 639px) {
-      .hero-portrait {
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-    @media (min-width: 640px) {
-      .hero-portrait {
-        top: auto;
-        bottom: 0;
-        width: 360px;
-      }
-    }
-    @media (min-width: 768px) {
-      .hero-portrait { width: 440px; }
-    }
-    @media (min-width: 1024px) {
-      .hero-portrait { width: 520px; }
-    }
-
-    /* Bottom Bar */
-    .hero-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding: 0 1.5rem 1.75rem;
-      position: relative;
-      z-index: 20;
-      flex-shrink: 0;
-    }
-    @media (min-width: 640px) {
-      .hero-bottom { padding: 0 1.5rem 2rem; }
-    }
-    @media (min-width: 768px) {
-      .hero-bottom { padding: 0 2.5rem 2.5rem; }
-    }
-
-    .hero-bottom-left {
-      color: var(--fg);
-      font-weight: 300;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      line-height: 1.3;
-      font-size: clamp(0.75rem, 1.4vw, 1.5rem);
-      max-width: 160px;
-    }
-    @media (min-width: 640px) {
-      .hero-bottom-left { max-width: 220px; }
-    }
-    @media (min-width: 768px) {
-      .hero-bottom-left { max-width: 260px; }
-    }
-
-    /* Contact Button */
-    .contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.5rem;
-      border: 1px solid var(--fg);
-      border-radius: 9999px;
-      color: var(--fg);
-      font-weight: 500;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      background: transparent;
-      cursor: pointer;
-      transition: background 200ms ease, color 200ms ease;
-      font-family: var(--font);
-      white-space: nowrap;
-      text-decoration: none;
-    }
-    .contact-btn:hover {
-      background: var(--fg);
-      color: var(--bg);
-    }
-    @media (min-width: 768px) {
-      .contact-btn { padding: 0.75rem 2rem; font-size: 0.9rem; }
-    }
-
-    /* ═══════════════════════════════════════════════════════════════════
-       CONTENT SECTIONS (X-Theme)
-       ═══════════════════════════════════════════════════════════════════ */
-    .w { max-width: var(--max-w); margin-inline: auto; padding-inline: 1rem; }
-    hr { border: none; height: 1px; background: var(--border); }
-
-    /* Section headings */
-    .eyebrow {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.11em;
-      color: var(--accent);
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      margin-bottom: 0.75rem;
-    }
-    .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); flex-shrink: 1; }
-
-    h2 { font-size: 1.3rem; color: var(--fg); }
-    p { font-size: 0.86rem; color: var(--muted2); line-height: 1.7; }
-    strong { color: var(--fg); font-weight: 600; }
-    a.link { color: var(--accent); border-bottom: 1px solid rgba(29,155,240,0.1); }
-    a.link:hover { border-bottom-color: var(--accent); }
-
-    section { padding: 1.25rem 0; }
-    section:first-of-type { padding-top: 2rem; }
-
-    /* Stats */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-bottom: 1px solid var(--border);
-    }
-    .stat-cell {
-      padding: 1rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      border-right: 1px solid var(--border);
-      transition: 0.2s ease background;
-      cursor: default;
-    }
-    .stat-cell:hover { background: var(--card2); }
-    .stat-cell:last-child { border-right: none; }
-    .stat-n {
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: var(--fg);
-      line-height: 1.1;
-      display: flex;
-      align-items: baseline;
-      gap: 0.3rem;
-    }
-    .stat-n em {
-      font-style: normal;
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: var(--accent);
-    }
-    .stat-l { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.02em; }
-
-    /* Experience */
-    .exp {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0 1.75rem;
-      align-items: baseline;
-      padding: 1rem 0;
-      border-top: 1px solid var(--border);
-      transition: 0.15s ease background;
-      margin: 0 -0.75rem;
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-    .exp:hover { background: var(--card); }
-    .exp:first-child { border-top: none; }
-    .exp-date {
-      font-size: 0.72rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--muted2);
-      white-space: nowrap;
-      padding-top: 0.4rem;
-      min-width: 8.5rem;
-    }
-    .exp-role { font-size: 1rem; font-weight: 700; color: var(--fg); margin-bottom: 0.12rem; }
-    .exp-org { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.4rem; }
-    .exp-org a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
-    .exp-org a:hover { border-bottom-color: var(--accent); }
-    .exp ul { padding-left: 1.1rem; }
-    .exp ul li {
-      font-size: 0.8rem;
-      color: var(--muted2);
-      line-height: 1.65;
-      list-style: disc;
-      margin-bottom: 0.3rem;
-      padding-left: 0.2rem;
-    }
-    .exp ul li::marker { color: var(--muted); }
-
-    /* Tech Grid */
-    .tech-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .tech-cell {
-      background: var(--bg);
-      padding: 1.1rem;
-      transition: 0.2s ease background;
-    }
-    .tech-cell:hover { background: var(--card2); }
-    .tech-cell .label {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.95rem;
-    }
-    .tech-cell .tools { display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; }
-    .tech-cell .tool { font-size: 0.73rem; color: var(--fg); }
-    .tech-cell .sep { color: var(--border); font-size: 0.55rem; margin: 0 0.2rem; }
-
-    .tag {
-      font-size: 0.67rem;
-      font-weight: 500;
-      padding: 0.18rem 0.55rem;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.2rem;
-    }
-    .tag-open { background: rgba(0,186,124,0.06); color: var(--green); border: 1px solid rgba(0,186,124,0.18); }
-    .tag-ai { background: rgba(249,24,128,0.06); color: var(--red); border: 1px solid rgba(249,24,128,0.18); }
-    .tag-mobile { background: rgba(29,155,240,0.06); color: var(--accent); border: 1px solid rgba(29,155,240,0.18); }
-    .tag-dev { background: rgba(234,179,8,0.06); color: #eab308; border: 1px solid rgba(234,179,8,0.18); }
-
-    /* Projects */
-    .project {
-      display: grid;
-      grid-template-columns: 115px 1fr auto;
-      gap: 1rem;
-      align-items: start;
-      padding: 1.1rem 0;
-      border-top: 1px solid var(--border);
-      margin: 0 -0.75rem;
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-      transition: border-color 0.15s ease;
-    }
-    .project:hover { border-color: var(--accent); }
-    .project:first-child { border-top: none; }
-    .project-meta {
-      font-size: 0.72rem;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      white-space: nowrap;
-      padding-top: 0.1rem;
-    }
-    .meta-dot { color: var(--muted2); font-size: 0.55rem; margin: 0.15rem 0; }
-    .project-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--fg);
-      margin-bottom: 0.28rem;
-      line-height: 1.3;
-    }
-    .project-title a { color: inherit; transition: 0.15s ease color; }
-    .project-title a:hover { color: var(--accent); }
-    .project-desc { font-size: 0.82rem; color: var(--muted2); line-height: 1.65; margin-bottom: 0.35rem; }
-    .project-link {
-      font-size: 0.73rem;
-      color: var(--accent);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      transition: 0.15s ease opacity;
-    }
-    .project-link:hover { opacity: 0.75; }
-    .project-cta {
-      font-size: 0.72rem;
-      color: var(--muted);
-      padding-top: 0.1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.15rem;
-      flex-shrink: 0;
-    }
-    .cta-label { font-size: 0.65rem; color: var(--muted2); }
-
-    /* Focus Grid */
-    .focus-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-top: 1.1rem;
-    }
-    .focus-card {
-      background: var(--bg);
-      padding: 1.45rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      transition: 0.2s ease background;
-    }
-    .focus-card:hover { background: var(--card2); }
-    .focus-stat {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .focus-stat.shipping { color: var(--green); }
-    .focus-stat.building { color: var(--accent); }
-    .focus-stat.maintain { color: var(--red); }
-    .focus-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--fg);
-      line-height: 1.3;
-      margin-top: 0.2rem;
-    }
-    .focus-desc { font-size: 0.76rem; color: var(--muted2); line-height: 1.65; margin-top: 0.25rem; }
-
-    /* PR Cards */
-    .pr-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1rem 1.1rem;
-      margin-bottom: 0.85rem;
-      transition: 0.15s ease border-color, 0.25s ease box-shadow;
-    }
-    .pr-card:hover { border-color: var(--accent); box-shadow: 0 4px 24px -4px rgba(29,155,240,0.12); }
-    .pr-header { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.45rem; }
-    .pr-repo { font-size: 0.82rem; font-weight: 700; color: var(--fg); }
-    .pr-sep { color: var(--muted); font-size: 0.65rem; }
-    .pr-badge {
-      font-size: 0.65rem;
-      font-weight: 600;
-      padding: 0.12rem 0.55rem;
-      border-radius: 999px;
-      letter-spacing: 0.04em;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .badge-open { background: rgba(0,186,124,0.06); color: var(--green); border: 1px solid rgba(0,186,124,0.18); }
-    .badge-merged { background: rgba(249,24,128,0.06); color: var(--red); border: 1px solid rgba(249,24,128,0.18); }
-    .pr-badge-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-    .pr-body { font-size: 0.8rem; color: var(--muted2); line-height: 1.7; margin-bottom: 0.4rem; }
-    .code {
-      font-size: 0.76rem;
-      background: var(--card2);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 0.1rem 0.4rem;
-      color: var(--fg);
-      font-family: 'SF Mono', SFMono-Regular, 'Fira Code', Consolas, monospace;
-    }
-    .pr-link { font-size: 0.72rem; color: var(--accent); transition: 0.15s ease opacity; }
-    .pr-link:hover { opacity: 0.72; }
-
-    /* Testimonials */
-    .testimonial {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1.1rem 1.25rem;
-      margin-bottom: 0.85rem;
-      transition: 0.2s ease border-color;
-    }
-    .testimonial:hover { border-color: rgba(29,155,240,0.18); }
-    .t-quote { font-size: 0.82rem; color: var(--fg); line-height: 1.65; font-style: italic; margin-bottom: 0.6rem; }
-    .t-author { font-size: 0.7rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
-    .t-role {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.12rem 0.55rem;
-      border-radius: 999px;
-      font-size: 0.63rem;
-      font-weight: 600;
-    }
-
-    /* Reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-
-    /* Footer */
-    footer {
-      padding: 1.25rem 1rem;
-      border-top: 1px solid var(--border);
-      margin-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    footer span { font-size: 0.7rem; color: var(--muted); }
-    footer a { color: var(--muted); transition: 0.15s ease color; }
-    footer a:hover { color: var(--accent); }
-
-    /* Responsive */
-    @media(max-width:900px) {
-      .focus-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media(max-width:767px) {
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .stat-cell:nth-child(2) { border-right: none; }
-      .exp { grid-template-columns: 1fr; gap: 0.25rem 0; }
-      .exp-date { min-width: 0; }
-      .tech-grid { grid-template-columns: repeat(2, 1fr); }
-      .project { grid-template-columns: 1fr; gap: 0.35rem 0; }
-      .project-cta { flex-direction: row; }
-    }
-    @media(max-width:640px) {
-      .tech-grid { grid-template-columns: 1fr; }
-      .focus-grid { grid-template-columns: 1fr; }
-      section { padding: 1rem 0; }
-    }
-    @media(max-width:480px) {
-      .stats-row { grid-template-columns: 1fr 1fr; }
-      .exp { padding: 0.85rem 0; }
-    }
+    /* ═══ FOOTER ═══ */
+    .footer { background: #0C0C0C; padding: 2rem 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--border); }
+    @media (min-width: 768px) { .footer { padding: 2rem 2.5rem; } }
+    .footer span { font-size: 0.7rem; color: rgba(215, 226, 234, 0.4); }
+    .footer a { color: rgba(215, 226, 234, 0.4); transition: color 150ms ease; }
+    .footer a:hover { color: var(--fg); }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       HERO SECTION (NEW)
-       ═══════════════════════════════════════════════════════════════ -->
+  <!-- ═══ HERO ═══ -->
   <div class="hero" id="hero">
-
-    <!-- Navbar -->
     <nav class="hero-nav fade-in" style="--fade-delay: 0s; --fade-y: -20px;">
       <ul class="nav-links">
         <li><a class="nav-link" href="#about">About</a></li>
-        <li><a class="nav-link" href="#projects">Price</a></li>
+        <li><a class="nav-link" href="#services">Services</a></li>
         <li><a class="nav-link" href="#projects">Projects</a></li>
         <li><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
     </nav>
-
-    <!-- Hero Heading -->
     <div class="hero-heading-wrap">
-      <h1 class="hero-heading fade-in" style="--fade-delay: 0.15s; --fade-y: 40px;">
-        Hi, i&apos;m Taufeeq
-      </h1>
+      <h1 class="hero-heading fade-in" style="--fade-delay: 0.15s; --fade-y: 40px;">Hi, i&apos;m Taufeeq</h1>
     </div>
-
-    <!-- Portrait (Magnet) -->
     <div class="hero-portrait fade-in" id="heroPortrait" style="--fade-delay: 0.6s; --fade-y: 30px;">
-      <img src="portrait.png" alt="Abdul Taufeeq portrait" />
+      <img src="portrait.png" alt="Abdul Taufeeq" />
     </div>
-
-    <!-- Bottom Bar -->
     <div class="hero-bottom">
-      <p class="hero-bottom-left fade-in" style="--fade-delay: 0.35s; --fade-y: 20px;">
-        full-stack engineer building across web, mobile, open-source &amp; AI
-      </p>
-      <a href="#contact" class="contact-btn fade-in" style="--fade-delay: 0.5s; --fade-y: 20px;">
-        Contact
-      </a>
+      <p class="hero-bottom-left fade-in" style="--fade-delay: 0.35s; --fade-y: 20px;">full-stack engineer building across web, mobile, open-source &amp; AI</p>
+      <a href="#contact" class="contact-btn fade-in" style="--fade-delay: 0.5s; --fade-y: 20px;">Contact</a>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       STATS
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="stats-row reveal" role="list" aria-label="GitHub stats">
-    <div class="stat-cell" role="listitem">
-      <div class="stat-n"><span id="statRepos">0</span><em>Repos</em></div>
-      <div class="stat-l">Public repositories</div>
+  <!-- ═══ MARQUEE ═══ -->
+  <section class="marquee-section" id="marquee">
+    <div class="marquee-row" id="marqueeRow1"></div>
+    <div class="marquee-row" id="marqueeRow2"></div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section class="about-section" id="about">
+    <img class="about-corner about-corner-tl fade-in" style="--fade-delay: 0.1s; --fade-x: -80; --fade-dur: 0.9s" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png" alt="" loading="lazy" />
+    <img class="about-corner about-corner-bl fade-in" style="--fade-delay: 0.25s; --fade-x: -80; --fade-dur: 0.9s" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png" alt="" loading="lazy" />
+    <img class="about-corner about-corner-tr fade-in" style="--fade-delay: 0.15s; --fade-x: 80; --fade-dur: 0.9s" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png" alt="" loading="lazy" />
+    <img class="about-corner about-corner-br fade-in" style="--fade-delay: 0.3s; --fade-x: 80; --fade-dur: 0.9s" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png" alt="" loading="lazy" />
+    <div class="about-content">
+      <h2 class="about-heading fade-in" style="--fade-delay: 0s; --fade-y: 40;">About me</h2>
+      <p class="about-text fade-in" id="aboutText" style="--fade-delay: 0.2s;">With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!</p>
+      <a href="#contact" class="contact-btn fade-in" style="--fade-delay: 0.4s;">Contact Me</a>
     </div>
-    <div class="stat-cell" role="listitem">
-      <div class="stat-n"><span id="statStars">0</span><em>Stars</em></div>
-      <div class="stat-l">Earned across GitHub</div>
+  </section>
+
+  <!-- ═══ SERVICES ═══ -->
+  <section class="services-section" id="services">
+    <h2 class="services-heading fade-in">Services</h2>
+    <div class="services-list">
+      <div class="service-item fade-in" style="--fade-delay: 0s;">
+        <span class="service-num">01</span>
+        <div class="service-info">
+          <div class="service-name">Full-Stack Development</div>
+          <div class="service-desc">End-to-end web application development — from database design to frontend interfaces. I build with React, Next.js, FastAPI, and Node.js, shipping clean, scalable products.</div>
+        </div>
+      </div>
+      <div class="service-item fade-in" style="--fade-delay: 0.1s;">
+        <span class="service-num">02</span>
+        <div class="service-info">
+          <div class="service-name">Mobile Engineering</div>
+          <div class="service-desc">Cross-platform mobile apps with React Native and Flutter. I've contributed to the Flutter framework core itself — fixing memory leaks that the team missed for three years.</div>
+        </div>
+      </div>
+      <div class="service-item fade-in" style="--fade-delay: 0.2s;">
+        <span class="service-num">03</span>
+        <div class="service-info">
+          <div class="service-name">Open-Source Contribution</div>
+          <div class="service-desc">Active contributor to major projects: psf/requests, py-pdf/pypdf, flutter/flutter. I submit merge-optimized patches with minimal diffs and rapid maintainer response.</div>
+        </div>
+      </div>
+      <div class="service-item fade-in" style="--fade-delay: 0.3s;">
+        <span class="service-num">04</span>
+        <div class="service-info">
+          <div class="service-name">AI &amp; Systems</div>
+          <div class="service-desc">Building AI-powered products with LLMs, MCP tooling, and FastAPI backends. From Gemini integrations to custom AI pipelines — I make AI work in production.</div>
+        </div>
+      </div>
+      <div class="service-item fade-in" style="--fade-delay: 0.4s;">
+        <span class="service-num">05</span>
+        <div class="service-info">
+          <div class="service-name">DevOps &amp; Infrastructure</div>
+          <div class="service-desc">Docker, GitHub Actions CI/CD, Supabase, PostgreSQL, Linux/WSL. I own the full deployment pipeline — from code commit to production, with observability baked in.</div>
+        </div>
+      </div>
     </div>
-    <div class="stat-cell" role="listitem">
-      <div class="stat-n" style="font-size:.95rem;align-items:center"><span>TypeScript<em style="margin-left:.4rem;font-size:.75rem;font-weight:400">▲</em></span></div>
-      <div class="stat-l">Primary language</div>
+  </section>
+
+  <!-- ═══ PROJECTS ═══ -->
+  <section class="projects-section" id="projects">
+    <h2 class="projects-heading fade-in">Project</h2>
+
+    <!-- Card 1: RoamReach -->
+    <div class="project-card-wrap" style="margin-bottom: 2rem;">
+      <div class="project-card" data-index="0">
+        <div class="project-card-top">
+          <span class="project-num">01</span>
+          <div class="project-meta">
+            <span class="project-category">Client</span>
+            <span class="project-name">RoamReach</span>
+            <a href="https://github.com/trippusultan/RoamReach" target="_blank" rel="noopener" class="live-btn">Live Project</a>
+          </div>
+        </div>
+        <div class="project-images">
+          <div class="project-col-left">
+            <div class="project-img img-placeholder" style="height: clamp(130px, 16vw, 230px);">Expo + RN</div>
+            <div class="project-img img-placeholder" style="height: clamp(160px, 22vw, 340px);">Supabase</div>
+          </div>
+          <div class="project-col-right">
+            <div class="project-img project-img-tall img-placeholder">Gemini AI Integration</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="stat-cell" role="listitem">
-      <div class="stat-n"><span id="statContrib">0</span><em>Contributions</em></div>
-      <div class="stat-l">This year</div>
+
+    <!-- Card 2: Reframe -->
+    <div class="project-card-wrap" style="margin-bottom: 2rem;">
+      <div class="project-card" data-index="1">
+        <div class="project-card-top">
+          <span class="project-num">02</span>
+          <div class="project-meta">
+            <span class="project-category">Open-Source</span>
+            <span class="project-name">Reframe</span>
+            <a href="https://github.com/trippusultan/reframe" target="_blank" rel="noopener" class="live-btn">Live Project</a>
+          </div>
+        </div>
+        <div class="project-images">
+          <div class="project-col-left">
+            <div class="project-img img-placeholder" style="height: clamp(130px, 16vw, 230px);">WebRTC</div>
+            <div class="project-img img-placeholder" style="height: clamp(160px, 22vw, 340px);">Canvas API</div>
+          </div>
+          <div class="project-col-right">
+            <div class="project-img project-img-tall img-placeholder">Browser Video Editor</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       ABOUT
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <section id="about" class="reveal">
-      <div class="eyebrow">01 / ABOUT</div>
-      <div style="margin-top:.4rem">
-        <p style="margin-bottom:.85rem;font-size:.88rem;color:var(--muted2)">IIT Mandi, 2019&mdash;2023. Since then I&apos;ve been building and shipping across web, mobile, and AI &mdash; end-to-end, from database to deployment. No silos: I own the full stack.</p>
-        <p style="margin-bottom:0;font-size:.86rem;color:var(--muted2)">
-          CTO at <a href="https://www.ryteproductions.in" class="link">ryteproductions.in</a>
-          &mdash; all IT operations, infrastructure, and product engineering. Currently building
-          <a href="https://github.com/trippusultan/RoamReach" class="link">RoamReach</a>, a real-time backpacker meetup app with Expo, Supabase, and Gemini AI.
-        </p>
-      </div>
-    </section>
-  </div>
-  <hr>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       EXPERIENCE
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <section id="experience" class="reveal">
-      <div class="eyebrow">02 / EXPERIENCE</div>
-      <h2 style="margin-bottom:.15rem">Work history.</h2>
-
-      <div class="exp">
-        <div class="exp-date">2025 &mdash; PRESENT</div>
-        <div>
-          <div class="exp-role">CTO</div>
-          <div class="exp-org"><a href="https://www.ryteproductions.in" class="link">ryteproductions.in</a></div>
-          <ul>
-            <li>Manage all IT operations &mdash; infrastructure, tooling, and product engineering.</li>
-            <li>Own the full stack from database to deployment. No silos, no waiting.</li>
-            <li>Build and maintain production systems with clean, observable code.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="exp">
-        <div class="exp-date">2024 &mdash; NOW</div>
-        <div>
-          <div class="exp-role">Founder &amp; Lead Developer</div>
-          <div class="exp-org">Independent &middot; open-source &amp; clients</div>
-          <ul>
-            <li>Building <a href="https://github.com/trippusultan/RoamReach" class="link">RoamReach</a> &mdash; real-time meetup app with Expo + Supabase + Gemini AI.</li>
-            <li>Shipping <a href="https://github.com/trippusultan/reframe" class="link">reframe</a> &mdash; browser-based video editor, WebRTC, zero-login.</li>
-            <li>Contributing upstream: psf/requests, py-pdf/pypdf, flutter/flutter.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="exp">
-        <div class="exp-date">2023 &mdash; 2024</div>
-        <div>
-          <div class="exp-role">Freelance App Developer</div>
-          <div class="exp-org">Independent contractor</div>
-          <ul>
-            <li>Built mobile and web apps for clients &mdash; React Native, Expo, Node.js, TypeScript.</li>
-            <li>Shipped end-to-end: design review &rarr; production deploys.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </div>
-  <hr>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       STACK
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <section id="stack" class="reveal">
-      <div class="eyebrow">03 / STACK</div>
-      <h2 style="margin-bottom:1.25rem">What I work with.</h2>
-      <div class="tech-grid">
-        <div class="tech-cell">
-          <div class="label">Languages</div>
-          <div class="tools">
-            <span class="tool">TypeScript</span>
-            <span class="tool">Python</span>
-            <span class="tool">HTML / CSS</span>
-            <span class="tool">Dart</span>
+    <!-- Card 3: Flutter PR -->
+    <div class="project-card-wrap" style="margin-bottom: 2rem;">
+      <div class="project-card" data-index="2">
+        <div class="project-card-top">
+          <span class="project-num">03</span>
+          <div class="project-meta">
+            <span class="project-category">Open-Source</span>
+            <span class="project-name">Flutter Framework</span>
+            <a href="https://github.com/flutter/flutter/pull/186512" target="_blank" rel="noopener" class="live-btn">Live Project</a>
           </div>
         </div>
-        <div class="tech-cell">
-          <div class="label">Open-Source</div>
-          <div class="tools">
-            <a href="https://github.com/trippusultan" style="color:var(--fg);font-size:.73rem">@trippusultan</a>
-            <span class="tag tag-open" style="margin-left:.25rem">&rarr; Fork PRs</span>
+        <div class="project-images">
+          <div class="project-col-left">
+            <div class="project-img img-placeholder" style="height: clamp(130px, 16vw, 230px);">Dart</div>
+            <div class="project-img img-placeholder" style="height: clamp(160px, 22vw, 340px);">Widget Lifecycle</div>
           </div>
-        </div>
-        <div class="tech-cell">
-          <div class="label">Projects</div>
-          <div class="tools">
-            <a href="https://github.com/trippusultan/RoamReach" style="color:var(--fg);font-size:.73rem">RoamReach</a>
-            <span class="sep"></span>
-            <a href="https://github.com/trippusultan/reframe" style="color:var(--fg);font-size:.73rem">reframe</a>
-            <span class="tag tag-mobile" style="margin-left:.25rem">Expo &middot; Supabase</span>
-          </div>
-        </div>
-        <div class="tech-cell">
-          <div class="label">DevOps</div>
-          <div class="tools">
-            <span class="tool">Docker</span>
-            <span class="tool">Linux</span>
-            <span class="tool">GitHub Actions</span>
-            <span class="tool">Supabase Cloud</span>
-            <span class="tool">PostgreSQL</span>
-          </div>
-        </div>
-        <div class="tech-cell">
-          <div class="label">AI &amp; Agents</div>
-          <div class="tools">
-            <span class="tool">LLMs</span>
-            <span class="tool">MCP</span>
-            <span class="tool">FastAPI</span>
-            <span class="tool">D3.js</span>
-            <span class="tool">Gemini AI</span>
-          </div>
-        </div>
-        <div class="tech-cell">
-          <div class="label">Practices</div>
-          <div class="tools">
-            <span class="tag tag-dev">TDD</span>
-            <span class="tag tag-dev">CI/CD</span>
-            <span class="tag tag-dev">Clean Architecture</span>
-            <span class="tag tag-dev">DevEx First</span>
-            <span class="tag tag-open">Open-Source</span>
+          <div class="project-col-right">
+            <div class="project-img project-img-tall img-placeholder">Memory Leak Fix — Merged</div>
           </div>
         </div>
       </div>
-    </section>
-  </div>
-  <hr>
+    </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       PROJECTS
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <section id="projects" class="reveal">
-      <div class="eyebrow">04 / PROJECTS</div>
-      <h2 style="margin-bottom:.15rem">Open-source work.</h2>
+  </section>
 
-      <div class="project">
-        <div class="project-meta"><div>2026</div><div class="meta-dot">&#x2442;</div><div style="color:var(--accent)">TypeScript</div></div>
-        <div>
-          <div class="project-title"><a href="https://github.com/trippusultan/RoamReach" target="_blank" rel="noopener">RoamReach</a></div>
-          <div class="project-desc">Real-time backpacker meetup app. Expo + React Native + Supabase + Gemini AI. Location-aware, live-chat, open-source.</div>
-          <a href="https://github.com/trippusultan/RoamReach" class="project-link" target="_blank" rel="noopener">github.com/trippusultan &rarr;</a>
-        </div>
-        <div class="project-cta"><span>&#x2691; 1</span><span class="cta-label">star</span></div>
-      </div>
+  <!-- ═══ CONTACT ═══ -->
+  <section class="contact-section" id="contact">
+    <h2 class="contact-heading fade-in">Let's Talk</h2>
+    <p class="contact-sub fade-in" style="--fade-delay: 0.15s;">Open to freelance, full-time, and open-source collaboration. Open a PR on any project or drop an email.</p>
+    <a href="mailto:sultantrippu@gmail.com" class="contact-pill fade-in" style="--fade-delay: 0.3s;">Contact Me</a>
+  </section>
 
-      <div class="project">
-        <div class="project-meta"><div>2026</div><div class="meta-dot">&#x2442;</div><div style="color:var(--accent)">HTML</div></div>
-        <div>
-          <div class="project-title"><a href="https://github.com/trippusultan/trippusultan.github.io" target="_blank" rel="noopener">trippusultan.github.io</a></div>
-          <div class="project-desc">Portfolio &mdash; baked GitHub data, zero runtime API calls.</div>
-          <a href="https://trippusultan.github.io" class="project-link" target="_blank" rel="noopener">trippusultan.github.io &rarr;</a>
-        </div>
-        <div class="project-cta"><span>&#x2691; 1</span><span class="cta-label">star</span></div>
-      </div>
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <span>&copy; 2026 Abdul Taufeeq</span>
+    <a href="https://github.com/trippusultan/trippusultan.github.io">src &#x2197;</a>
+  </footer>
 
-      <div class="project">
-        <div class="project-meta"><div>2026</div><div class="meta-dot">&#x2442;</div><div style="color:var(--accent)">TypeScript</div></div>
-        <div>
-          <div class="project-title"><a href="https://github.com/trippusultan/reframe" target="_blank" rel="noopener">reframe</a></div>
-          <div class="project-desc">Free, open-source browser-based video editor. WebRTC + Canvas &mdash; no login, no uploads, no ads.</div>
-          <a href="https://github.com/trippusultan/reframe" class="project-link" target="_blank" rel="noopener">github.com/trippusultan &rarr;</a>
-        </div>
-        <div class="project-cta"><span>&#x2691; 0</span><span class="cta-label">stars</span></div>
-      </div>
-
-      <div class="project">
-        <div class="project-meta"><div>2026</div><div class="meta-dot">&#x2442;</div><div style="color:var(--accent)">TypeScript</div></div>
-        <div>
-          <div class="project-title"><a href="https://github.com/trippusultan/pureflow" target="_blank" rel="noopener">pureflow</a></div>
-          <div class="project-desc">PureFlow &mdash; scroll-driven hero landing page. React 19 + TypeScript + GSAP ScrollTrigger.</div>
-          <a href="https://github.com/trippusultan/pureflow" class="project-link" target="_blank" rel="noopener">github.com/trippusultan &rarr;</a>
-        </div>
-        <div class="project-cta"><span>&#x2691; 0</span><span class="cta-label">stars</span></div>
-      </div>
-
-      <div class="project">
-        <div class="project-meta"><div>2026</div><div class="meta-dot">&#x2442;</div><div style="color:var(--accent)">Python</div></div>
-        <div>
-          <div class="project-title"><a href="https://github.com/trippusultan/pypdf" target="_blank" rel="noopener">pypdf</a></div>
-          <div class="project-desc">Fork of py-pdf/pypdf &mdash; pure-python PDF splitting, merging, cropping, and transforming.</div>
-          <a href="https://pypdf.readthedocs.io/en/latest/" class="project-link" target="_blank" rel="noopener">pypdf.readthedocs.io &rarr;</a>
-        </div>
-        <div class="project-cta"><span>&#x2691; 0</span><span class="cta-label">fork</span></div>
-      </div>
-
-      <div class="project">
-        <div class="project-meta"><div>2026</div><div class="meta-dot">&#x2442;</div><div style="color:var(--accent)">TypeScript</div></div>
-        <div>
-          <div class="project-title"><a href="https://github.com/trippusultan/QuantNova" target="_blank" rel="noopener">QuantNova</a></div>
-          <div class="project-desc">Open-source GUI quant backtesting platform for strategy development, market viz, and collab research.</div>
-          <a href="https://www.quantnova.in" class="project-link" target="_blank" rel="noopener">www.quantnova.in &rarr;</a>
-        </div>
-        <div class="project-cta"><span>&#x2691; 0</span><span class="cta-label">stars</span></div>
-      </div>
-    </section>
-  </div>
-  <hr>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       NOW / FOCUS
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <section id="focus" class="reveal">
-      <div class="eyebrow">05 / NOW</div>
-      <h2 style="margin-bottom:.15rem">Active work.</h2>
-      <div class="focus-grid">
-        <div class="focus-card">
-          <div class="focus-stat shipping">01 &middot; shipping</div>
-          <div class="focus-title">RoamReach</div>
-          <div class="focus-desc">Real-time backpacker meetup app. Expo + React Native + Supabase + Gemini AI. Location-aware, live-chat, open-source.</div>
-        </div>
-        <div class="focus-card">
-          <div class="focus-stat building">02 &middot; building</div>
-          <div class="focus-title">archestra</div>
-          <div class="focus-desc">MCP-native AI platform for enterprise. Secure toolbox, observability, control.</div>
-        </div>
-        <div class="focus-card">
-          <div class="focus-stat shipping">03 &middot; shipping</div>
-          <div class="focus-title">reframe</div>
-          <div class="focus-desc">Free, open-source browser-based video editor. WebRTC + Canvas &mdash; no login, no uploads, no ads.</div>
-        </div>
-      </div>
-    </section>
-  </div>
-  <hr>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       OPEN-SOURCE CONTRIBUTIONS
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <section id="opensource" class="reveal">
-      <div class="eyebrow">06 / CONTRIBUTIONS</div>
-      <h2 style="margin-bottom:.85rem">Open-source pull requests.</h2>
-
-      <div class="pr-card">
-        <div class="pr-header">
-          <a href="https://github.com/psf/requests" class="pr-repo">psf/requests</a>
-          <span class="pr-sep">@</span>
-          <a href="https://github.com/psf/requests/pull/7447" style="font-size:.75rem;color:var(--accent)">#7447</a>
-          <span class="pr-badge badge-open"><span class="pr-badge-dot" style="background:var(--green)"></span> Open</span>
-        </div>
-        <div class="pr-body"><code class="code">Response.content</code> now re-raises the original stream exception on second read &mdash; fixing a years-long retry-data-loss bug.</div>
-        <a href="https://github.com/psf/requests/pull/7447" class="pr-link">View PR &rarr;</a>
-      </div>
-
-      <div class="pr-card">
-        <div class="pr-header">
-          <a href="https://github.com/py-pdf/pypdf" class="pr-repo">py-pdf/pypdf</a>
-          <span class="pr-sep">@</span>
-          <a href="https://github.com/py-pdf/pypdf/pull/3778" style="font-size:.75rem;color:var(--accent)">#3778</a>
-          <span class="pr-badge badge-open"><span class="pr-badge-dot" style="background:var(--green)"></span> Open</span>
-        </div>
-        <div class="pr-body">
-          Fixed a <code class="code" style="margin:0 .25rem">KeyError</code> in
-          <code class="code" style="margin:0 .25rem">TreeObject.insert_child</code> by replacing bare
-          <code class="code" style="margin:0 .25rem">del child_obj["/Next"]</code> with
-          <code class="code" style="margin:0 .25rem">child_obj.pop("/Next", None)</code> &mdash; added a regression test + doc update.
-        </div>
-        <a href="https://github.com/py-pdf/pypdf/pull/3778" class="pr-link">View PR &rarr;</a>
-      </div>
-
-      <div class="pr-card">
-        <div class="pr-header">
-          <a href="https://github.com/flutter/flutter" class="pr-repo">flutter/flutter</a>
-          <span class="pr-sep">@</span>
-          <a href="https://github.com/flutter/flutter/pull/186512" style="font-size:.75rem;color:var(--accent)">#186512</a>
-          <span class="pr-badge badge-merged"><span class="pr-badge-dot" style="background:var(--red)"></span> Merged</span>
-        </div>
-        <div class="pr-body">Fixed dispose-order memory leak in widget lifecycle &mdash; a bug owner missed for <em>three years</em>. Clean, minimal change, exactly right.</div>
-        <a href="https://github.com/flutter/flutter/pull/186512" class="pr-link">View PR &rarr;</a>
-      </div>
-    </section>
-  </div>
-  <hr>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       TESTIMONIALS
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <section id="testimonials" class="reveal">
-      <div class="eyebrow">07 / QUOTES</div>
-      <h2 style="margin-bottom:.85rem">What others say.</h2>
-
-      <div class="testimonial">
-        <div class="t-quote">"Taufeeq shipped a critical fix to the requests library that caught a stream-reading edge case we'd missed for years. Sharp, thorough, and great at navigating unfamiliar codebases."</div>
-        <div class="t-author">
-          <span class="t-role" style="background:rgba(234,179,8,0.06);color:#eab308;border:1px solid rgba(234,179,8,0.18)">maintainer</span>
-          psf/requests &middot; 2025
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <div class="t-quote">"As CTO at Ryte Productions, Taufeeq re-architected our build pipeline and cut build times by 40%. His understanding of both frontend DX and backend architecture is rare."</div>
-        <div class="t-author">
-          <span class="t-role" style="background:rgba(29,155,240,0.06);color:var(--accent);border:1px solid rgba(29,155,240,0.18)">client</span>
-          ryteproductions.in &middot; 2023&mdash;present
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <div class="t-quote">"PR #186512 on the Flutter project addressed a dispose-order memory leak I hadn't thought about in three years. Clean, minimal change, exactly right."</div>
-        <div class="t-author">
-          <span class="t-role" style="background:rgba(249,24,128,0.06);color:var(--red);border:1px solid rgba(249,24,128,0.18)">reviewed</span>
-          flutter/flutter &middot; 2025
-        </div>
-      </div>
-    </section>
-  </div>
-  <hr>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       CONTACT
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <section id="contact" class="reveal">
-      <div class="eyebrow">08 / CONTACT</div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:.5rem">
-        <div>
-          <h2>Get in touch.</h2>
-          <p style="margin-top:.65rem;max-width:38rem;font-size:.86rem;color:var(--muted2)">Open to freelance, full-time, and open-source collaboration. Open a PR on any project or drop an email.</p>
-        </div>
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-          <a href="mailto:sultantrippu@gmail.com" class="contact-btn">Email &rarr;</a>
-          <a href="https://github.com/trippusultan" class="contact-btn" style="border-color:var(--muted);color:var(--muted)">GitHub</a>
-          <a href="https://x.com/trippusultan" class="contact-btn" style="border-color:var(--muted);color:var(--muted)">X / Twitter</a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       FOOTER
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="w">
-    <footer>
-      <span>&copy; 2026 Abdul Taufeeq</span>
-      <a href="https://github.com/trippusultan/trippusultan.github.io" style="margin-left:auto">src &#x2197;</a>
-    </footer>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       SCRIPTS
-       ═══════════════════════════════════════════════════════════════ -->
   <script>
   (function () {
     /* ── Fade-in on load ── */
-    const fadeEls = document.querySelectorAll('.fade-in');
-    fadeEls.forEach(el => {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          el.classList.add('visible');
-        });
-      });
+    document.querySelectorAll('.fade-in').forEach(el => {
+      requestAnimationFrame(() => { requestAnimationFrame(() => { el.classList.add('visible'); }); });
     });
 
-    /* ── Magnet effect for portrait ── */
+    /* ── Magnet effect ── */
     const portrait = document.getElementById('heroPortrait');
     if (portrait) {
       const hero = document.getElementById('hero');
-      const magnetPadding = 150;
-      const magnetStrength = 3;
-      const activeTransition = 'transform 0.3s ease-out';
-      const inactiveTransition = 'transform 0.6s ease-in-out';
-
       hero.addEventListener('mousemove', function(e) {
         const rect = portrait.getBoundingClientRect();
-        const portraitCenterX = rect.left + rect.width / 2;
-        const portraitCenterY = rect.top + rect.height / 2;
-
-        const distX = e.clientX - portraitCenterX;
-        const distY = e.clientY - portraitCenterY;
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const distX = e.clientX - cx;
+        const distY = e.clientY - cy;
         const distance = Math.sqrt(distX * distX + distY * distY);
-
-        if (distance < magnetPadding) {
-          const force = (magnetPadding - distance) / magnetPadding;
-          const moveX = distX * force * magnetStrength;
-          const moveY = distY * force * magnetStrength;
-          portrait.style.transition = activeTransition;
-          if (window.innerWidth >= 640) {
-            portrait.style.transform = 'translate(calc(-50% + ' + moveX + 'px), ' + moveY + 'px)';
-          } else {
-            portrait.style.transform = 'translate(calc(-50% + ' + moveX + 'px), calc(-50% + ' + moveY + 'px))';
-          }
+        if (distance < 150) {
+          const force = (150 - distance) / 150;
+          portrait.style.transition = 'transform 0.3s ease-out';
+          const moveX = distX * force * 3;
+          const moveY = distY * force * 3;
+          portrait.style.transform = window.innerWidth >= 640
+            ? 'translate(calc(-50% + ' + moveX + 'px), ' + moveY + 'px)'
+            : 'translate(calc(-50% + ' + moveX + 'px), calc(-50% + ' + moveY + 'px))';
         } else {
-          portrait.style.transition = inactiveTransition;
-          if (window.innerWidth >= 640) {
-            portrait.style.transform = 'translateX(-50%)';
-          } else {
-            portrait.style.transform = 'translate(-50%, -50%)';
-          }
+          portrait.style.transition = 'transform 0.6s ease-in-out';
+          portrait.style.transform = window.innerWidth >= 640 ? 'translateX(-50%)' : 'translate(-50%, -50%)';
         }
       });
-
       hero.addEventListener('mouseleave', function() {
-        portrait.style.transition = inactiveTransition;
-        if (window.innerWidth >= 640) {
-          portrait.style.transform = 'translateX(-50%)';
-        } else {
-          portrait.style.transform = 'translate(-50%, -50%)';
-        }
+        portrait.style.transition = 'transform 0.6s ease-in-out';
+        portrait.style.transform = window.innerWidth >= 640 ? 'translateX(-50%)' : 'translate(-50%, -50%)';
       });
     }
 
-    /* ── Scroll reveal ── */
-    const revealIO = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          revealIO.unobserve(e.target);
+    /* ── Marquee ── */
+    const gifs = [
+      'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
+      'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
+      'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
+      'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
+      'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
+      'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
+      'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
+      'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
+      'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
+      'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
+      'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
+      'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
+      'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
+      'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
+      'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
+      'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
+      'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
+      'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
+      'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
+      'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
+      'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif'
+    ];
+    const row1 = document.getElementById('marqueeRow1');
+    const row2 = document.getElementById('marqueeRow2');
+    const row1Gifs = gifs.slice(0, 11);
+    const row2Gifs = gifs.slice(11, 21);
+    function createTile(url) {
+      const img = document.createElement('img');
+      img.className = 'marquee-tile';
+      img.src = url;
+      img.alt = '';
+      img.loading = 'lazy';
+      return img;
+    }
+    // Triple for seamless scroll
+    for (let i = 0; i < 3; i++) row1Gifs.forEach(url => row1.appendChild(createTile(url)));
+    for (let i = 0; i < 3; i++) row2Gifs.forEach(url => row2.appendChild(createTile(url)));
+
+    const marqueeSection = document.getElementById('marquee');
+    let marqueeTop = 0;
+    const updateMarquee = () => {
+      const rect = marqueeSection.getBoundingClientRect();
+      const offset = (window.scrollY - rect.top + window.innerHeight) * 0.3;
+      row1.style.transform = 'translateX(' + (offset - 200) + 'px)';
+      row2.style.transform = 'translateX(' + (-(offset - 200)) + 'px)';
+    };
+    window.addEventListener('scroll', updateMarquee, { passive: true });
+    updateMarquee();
+
+    /* ── Animated text (char-by-char scroll reveal) ── */
+    const aboutText = document.getElementById('aboutText');
+    if (aboutText) {
+      const text = aboutText.textContent;
+      aboutText.innerHTML = '';
+      text.split('').forEach((char, i) => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = char;
+        span.style.transitionDelay = (i * 0.01) + 's';
+        aboutText.appendChild(span);
+      });
+      const chars = aboutText.querySelectorAll('.char');
+      const textObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const rect = entry.boundingClientRect;
+            const winH = window.innerHeight;
+            const progress = Math.max(0, Math.min(1, (winH - rect.top) / (winH * 0.6)));
+            const activeCount = Math.floor(progress * chars.length);
+            chars.forEach((ch, i) => {
+              ch.classList.toggle('active', i <= activeCount);
+            });
+          }
+        });
+      }, { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] });
+      textObserver.observe(aboutText);
+      // Also update on scroll for smoother animation
+      window.addEventListener('scroll', () => {
+        const rect = aboutText.getBoundingClientRect();
+        const winH = window.innerHeight;
+        if (rect.top < winH && rect.bottom > 0) {
+          const progress = Math.max(0, Math.min(1, (winH - rect.top) / (winH * 0.6)));
+          const activeCount = Math.floor(progress * chars.length);
+          chars.forEach((ch, i) => { ch.classList.toggle('active', i <= activeCount); });
+        }
+      }, { passive: true });
+    }
+
+    /* ── Project card stacking (scale on scroll) ── */
+    const projectCards = document.querySelectorAll('.project-card');
+    const totalCards = projectCards.length;
+    const updateCardScales = () => {
+      projectCards.forEach((card, index) => {
+        const wrap = card.parentElement;
+        const rect = wrap.getBoundingClientRect();
+        const winH = window.innerHeight;
+        if (rect.top < winH && rect.bottom > 0) {
+          const progress = Math.max(0, Math.min(1, (winH - rect.top) / winH));
+          const targetScale = 1 - (totalCards - 1 - index) * 0.03;
+          const scale = 1 - (1 - targetScale) * progress;
+          card.style.transform = 'scale(' + scale + ')';
         }
       });
+    };
+    window.addEventListener('scroll', updateCardScales, { passive: true });
+    updateCardScales();
+
+    /* ── Scroll reveal for sections ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
     }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-
-    document.querySelectorAll('section, .pr-card, .testimonial, .focus-card, .project, .exp, .tech-cell, .stat-cell, .reveal').forEach(el => {
-      revealIO.observe(el);
-    });
-
-    /* ── Animated counters ── */
-    function countUp(el, target) {
-      let n = 0;
-      const step = Math.max(1, Math.round(target / 56));
-      const t0 = performance.now();
-      function frame(ts) {
-        const p = Math.min((ts - t0) / 900, 1);
-        n = Math.round(p * target);
-        el.textContent = n;
-        if (p < 1) requestAnimationFrame(frame);
-        else el.textContent = target;
-      }
-      requestAnimationFrame(frame);
-    }
-
-    const statIO = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        countUp(document.getElementById('statRepos'), 17);
-        countUp(document.getElementById('statStars'), 2);
-        countUp(document.getElementById('statContrib'), 412);
-        statIO.disconnect();
-      });
-    }, { threshold: 0.4 });
-    statIO.observe(document.getElementById('statRepos'));
+    document.querySelectorAll('.fade-in').forEach(el => revealObserver.observe(el));
   })();
   </script>
-
 </body>
 </html>
