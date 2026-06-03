@@ -20,19 +20,24 @@
       --bg: #000000;
       --fg: #D7E2EA;
       --muted: #71767b;
+      --muted2: #536471;
       --border: #2f3336;
       --card: #16181c;
       --card2: #1d1f23;
       --accent: #1d9bf0;
+      --accent-hover: #1a8cd8;
+      --green: #00ba7c;
+      --red: #f91880;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --max-w: 680px;
     }
 
     [data-theme="light"] {
-      --bg: #ffffff;
+      --bg: #f7f9f9;
       --fg: #0f1419;
       --muted: #536471;
       --border: #eff3f4;
-      --card: #f7f9f9;
+      --card: #ffffff;
       --card2: #f0f3f4;
     }
 
@@ -56,7 +61,7 @@
     img { display: block; max-width: 100%; }
 
     /* ═══════════════════════════════════════════════════════════════════
-       FADE-IN ANIMATION SYSTEM
+       FADE-IN ANIMATION SYSTEM (Hero)
        ═══════════════════════════════════════════════════════════════════ */
     .fade-in {
       opacity: 0;
@@ -83,17 +88,15 @@
       overflow-y: hidden;
     }
 
-    /* ── Navbar ── */
+    /* Navbar */
     .hero-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 1.5rem 0;
+      flex-shrink: 0;
     }
     @media (min-width: 768px) {
-      .hero-nav { padding: 2rem 2.5rem 0; }
-    }
-    @media (min-width: 1024px) {
       .hero-nav { padding: 2rem 2.5rem 0; }
     }
 
@@ -105,6 +108,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
+      gap: 1rem;
     }
 
     .nav-link {
@@ -131,7 +135,7 @@
       .nav-link { font-size: 1.4rem; letter-spacing: 0.1em; }
     }
 
-    /* ── Hero Heading ── */
+    /* Hero Heading */
     .hero-heading-wrap {
       overflow: hidden;
       flex: 1;
@@ -168,7 +172,7 @@
       .hero-heading { font-size: clamp(6rem, 17.5vw, 18rem); }
     }
 
-    /* ── Hero Portrait (Magnet) ── */
+    /* Hero Portrait (Magnet) */
     .hero-portrait {
       position: absolute;
       left: 50%;
@@ -203,7 +207,7 @@
       .hero-portrait { width: 520px; }
     }
 
-    /* ── Bottom Bar ── */
+    /* Bottom Bar */
     .hero-bottom {
       display: flex;
       justify-content: space-between;
@@ -211,6 +215,7 @@
       padding: 0 1.5rem 1.75rem;
       position: relative;
       z-index: 20;
+      flex-shrink: 0;
     }
     @media (min-width: 640px) {
       .hero-bottom { padding: 0 1.5rem 2rem; }
@@ -235,7 +240,7 @@
       .hero-bottom-left { max-width: 260px; }
     }
 
-    /* ── Contact Button ── */
+    /* Contact Button */
     .contact-btn {
       display: inline-flex;
       align-items: center;
@@ -250,9 +255,10 @@
       letter-spacing: 0.08em;
       background: transparent;
       cursor: pointer;
-      transition: background 200ms ease, color 200ms ease, opacity 200ms ease;
+      transition: background 200ms ease, color 200ms ease;
       font-family: var(--font);
       white-space: nowrap;
+      text-decoration: none;
     }
     .contact-btn:hover {
       background: var(--fg);
@@ -263,9 +269,9 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       REST OF PAGE — Content sections below hero
+       CONTENT SECTIONS (X-Theme)
        ═══════════════════════════════════════════════════════════════════ */
-    .w { max-width: 680px; margin-inline: auto; padding-inline: 1rem; }
+    .w { max-width: var(--max-w); margin-inline: auto; padding-inline: 1rem; }
     hr { border: none; height: 1px; background: var(--border); }
 
     /* Section headings */
@@ -280,10 +286,10 @@
       gap: 0.65rem;
       margin-bottom: 0.75rem;
     }
-    .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); flex-shrink: 1; }
 
     h2 { font-size: 1.3rem; color: var(--fg); }
-    p { font-size: 0.86rem; color: var(--muted); line-height: 1.7; }
+    p { font-size: 0.86rem; color: var(--muted2); line-height: 1.7; }
     strong { color: var(--fg); font-weight: 600; }
     a.link { color: var(--accent); border-bottom: 1px solid rgba(29,155,240,0.1); }
     a.link:hover { border-bottom-color: var(--accent); }
@@ -291,7 +297,7 @@
     section { padding: 1.25rem 0; }
     section:first-of-type { padding-top: 2rem; }
 
-    /* ── Stats ── */
+    /* Stats */
     .stats-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -325,7 +331,7 @@
     }
     .stat-l { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.02em; }
 
-    /* ── Experience ── */
+    /* Experience */
     .exp {
       display: grid;
       grid-template-columns: auto 1fr;
@@ -344,7 +350,7 @@
       font-size: 0.72rem;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--muted2);
       white-space: nowrap;
       padding-top: 0.4rem;
       min-width: 8.5rem;
@@ -356,7 +362,7 @@
     .exp ul { padding-left: 1.1rem; }
     .exp ul li {
       font-size: 0.8rem;
-      color: var(--muted);
+      color: var(--muted2);
       line-height: 1.65;
       list-style: disc;
       margin-bottom: 0.3rem;
@@ -364,7 +370,7 @@
     }
     .exp ul li::marker { color: var(--muted); }
 
-    /* ── Tech Grid ── */
+    /* Tech Grid */
     .tech-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -399,12 +405,12 @@
       align-items: center;
       gap: 0.2rem;
     }
-    .tag-open { background: rgba(0,186,124,0.06); color: #00ba7c; border: 1px solid rgba(0,186,124,0.18); }
-    .tag-ai { background: rgba(249,24,128,0.06); color: #f91880; border: 1px solid rgba(249,24,128,0.18); }
+    .tag-open { background: rgba(0,186,124,0.06); color: var(--green); border: 1px solid rgba(0,186,124,0.18); }
+    .tag-ai { background: rgba(249,24,128,0.06); color: var(--red); border: 1px solid rgba(249,24,128,0.18); }
     .tag-mobile { background: rgba(29,155,240,0.06); color: var(--accent); border: 1px solid rgba(29,155,240,0.18); }
     .tag-dev { background: rgba(234,179,8,0.06); color: #eab308; border: 1px solid rgba(234,179,8,0.18); }
 
-    /* ── Projects ── */
+    /* Projects */
     .project {
       display: grid;
       grid-template-columns: 115px 1fr auto;
@@ -428,7 +434,7 @@
       white-space: nowrap;
       padding-top: 0.1rem;
     }
-    .meta-dot { color: var(--muted); font-size: 0.55rem; margin: 0.15rem 0; }
+    .meta-dot { color: var(--muted2); font-size: 0.55rem; margin: 0.15rem 0; }
     .project-title {
       font-size: 1.05rem;
       font-weight: 700;
@@ -438,7 +444,7 @@
     }
     .project-title a { color: inherit; transition: 0.15s ease color; }
     .project-title a:hover { color: var(--accent); }
-    .project-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.35rem; }
+    .project-desc { font-size: 0.82rem; color: var(--muted2); line-height: 1.65; margin-bottom: 0.35rem; }
     .project-link {
       font-size: 0.73rem;
       color: var(--accent);
@@ -458,9 +464,9 @@
       gap: 0.15rem;
       flex-shrink: 0;
     }
-    .cta-label { font-size: 0.65rem; color: var(--muted); }
+    .cta-label { font-size: 0.65rem; color: var(--muted2); }
 
-    /* ── Focus Grid ── */
+    /* Focus Grid */
     .focus-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -484,9 +490,9 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
-    .focus-stat.shipping { color: #00ba7c; }
+    .focus-stat.shipping { color: var(--green); }
     .focus-stat.building { color: var(--accent); }
-    .focus-stat.maintain { color: #f91880; }
+    .focus-stat.maintain { color: var(--red); }
     .focus-title {
       font-size: 0.95rem;
       font-weight: 800;
@@ -494,9 +500,9 @@
       line-height: 1.3;
       margin-top: 0.2rem;
     }
-    .focus-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.65; margin-top: 0.25rem; }
+    .focus-desc { font-size: 0.76rem; color: var(--muted2); line-height: 1.65; margin-top: 0.25rem; }
 
-    /* ── PR Cards ── */
+    /* PR Cards */
     .pr-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -519,10 +525,10 @@
       align-items: center;
       gap: 0.3rem;
     }
-    .badge-open { background: rgba(0,186,124,0.06); color: #00ba7c; border: 1px solid rgba(0,186,124,0.18); }
-    .badge-merged { background: rgba(249,24,128,0.06); color: #f91880; border: 1px solid rgba(249,24,128,0.18); }
+    .badge-open { background: rgba(0,186,124,0.06); color: var(--green); border: 1px solid rgba(0,186,124,0.18); }
+    .badge-merged { background: rgba(249,24,128,0.06); color: var(--red); border: 1px solid rgba(249,24,128,0.18); }
     .pr-badge-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-    .pr-body { font-size: 0.8rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.4rem; }
+    .pr-body { font-size: 0.8rem; color: var(--muted2); line-height: 1.7; margin-bottom: 0.4rem; }
     .code {
       font-size: 0.76rem;
       background: var(--card2);
@@ -535,7 +541,7 @@
     .pr-link { font-size: 0.72rem; color: var(--accent); transition: 0.15s ease opacity; }
     .pr-link:hover { opacity: 0.72; }
 
-    /* ── Testimonials ── */
+    /* Testimonials */
     .testimonial {
       border: 1px solid var(--border);
       border-radius: 4px;
@@ -556,7 +562,7 @@
       font-weight: 600;
     }
 
-    /* ── Reveal ── */
+    /* Reveal */
     .reveal {
       opacity: 0;
       transform: translateY(8px);
@@ -564,7 +570,7 @@
     }
     .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* ── Footer ── */
+    /* Footer */
     footer {
       padding: 1.25rem 1rem;
       border-top: 1px solid var(--border);
@@ -579,7 +585,7 @@
     footer a { color: var(--muted); transition: 0.15s ease color; }
     footer a:hover { color: var(--accent); }
 
-    /* ── Responsive ── */
+    /* Responsive */
     @media(max-width:900px) {
       .focus-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -606,7 +612,7 @@
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       HERO SECTION
+       HERO SECTION (NEW)
        ═══════════════════════════════════════════════════════════════ -->
   <div class="hero" id="hero">
 
@@ -656,7 +662,7 @@
       <div class="stat-l">Earned across GitHub</div>
     </div>
     <div class="stat-cell" role="listitem">
-      <div class="stat-n"><span>TypeScript</span><em style="margin-left:.4rem;font-size:.75rem;font-weight:400">▲</em></div>
+      <div class="stat-n" style="font-size:.95rem;align-items:center"><span>TypeScript<em style="margin-left:.4rem;font-size:.75rem;font-weight:400">▲</em></span></div>
       <div class="stat-l">Primary language</div>
     </div>
     <div class="stat-cell" role="listitem">
@@ -672,10 +678,8 @@
     <section id="about" class="reveal">
       <div class="eyebrow">01 / ABOUT</div>
       <div style="margin-top:.4rem">
-        <p style="margin-bottom:.85rem;font-size:.88rem;color:var(--muted)">
-          IIT Mandi, 2019&mdash;2023. Since then I&apos;ve been building and shipping across web, mobile, and AI &mdash; end-to-end, from database to deployment. No silos: I own the full stack.
-        </p>
-        <p style="margin-bottom:0;font-size:.86rem;color:var(--muted)">
+        <p style="margin-bottom:.85rem;font-size:.88rem;color:var(--muted2)">IIT Mandi, 2019&mdash;2023. Since then I&apos;ve been building and shipping across web, mobile, and AI &mdash; end-to-end, from database to deployment. No silos: I own the full stack.</p>
+        <p style="margin-bottom:0;font-size:.86rem;color:var(--muted2)">
           CTO at <a href="https://www.ryteproductions.in" class="link">ryteproductions.in</a>
           &mdash; all IT operations, infrastructure, and product engineering. Currently building
           <a href="https://github.com/trippusultan/RoamReach" class="link">RoamReach</a>, a real-time backpacker meetup app with Expo, Supabase, and Gemini AI.
@@ -821,6 +825,16 @@
       </div>
 
       <div class="project">
+        <div class="project-meta"><div>2026</div><div class="meta-dot">&#x2442;</div><div style="color:var(--accent)">HTML</div></div>
+        <div>
+          <div class="project-title"><a href="https://github.com/trippusultan/trippusultan.github.io" target="_blank" rel="noopener">trippusultan.github.io</a></div>
+          <div class="project-desc">Portfolio &mdash; baked GitHub data, zero runtime API calls.</div>
+          <a href="https://trippusultan.github.io" class="project-link" target="_blank" rel="noopener">trippusultan.github.io &rarr;</a>
+        </div>
+        <div class="project-cta"><span>&#x2691; 1</span><span class="cta-label">star</span></div>
+      </div>
+
+      <div class="project">
         <div class="project-meta"><div>2026</div><div class="meta-dot">&#x2442;</div><div style="color:var(--accent)">TypeScript</div></div>
         <div>
           <div class="project-title"><a href="https://github.com/trippusultan/reframe" target="_blank" rel="noopener">reframe</a></div>
@@ -904,7 +918,7 @@
           <a href="https://github.com/psf/requests" class="pr-repo">psf/requests</a>
           <span class="pr-sep">@</span>
           <a href="https://github.com/psf/requests/pull/7447" style="font-size:.75rem;color:var(--accent)">#7447</a>
-          <span class="pr-badge badge-open"><span class="pr-badge-dot" style="background:#00ba7c"></span> Open</span>
+          <span class="pr-badge badge-open"><span class="pr-badge-dot" style="background:var(--green)"></span> Open</span>
         </div>
         <div class="pr-body"><code class="code">Response.content</code> now re-raises the original stream exception on second read &mdash; fixing a years-long retry-data-loss bug.</div>
         <a href="https://github.com/psf/requests/pull/7447" class="pr-link">View PR &rarr;</a>
@@ -915,7 +929,7 @@
           <a href="https://github.com/py-pdf/pypdf" class="pr-repo">py-pdf/pypdf</a>
           <span class="pr-sep">@</span>
           <a href="https://github.com/py-pdf/pypdf/pull/3778" style="font-size:.75rem;color:var(--accent)">#3778</a>
-          <span class="pr-badge badge-open"><span class="pr-badge-dot" style="background:#00ba7c"></span> Open</span>
+          <span class="pr-badge badge-open"><span class="pr-badge-dot" style="background:var(--green)"></span> Open</span>
         </div>
         <div class="pr-body">
           Fixed a <code class="code" style="margin:0 .25rem">KeyError</code> in
@@ -931,7 +945,7 @@
           <a href="https://github.com/flutter/flutter" class="pr-repo">flutter/flutter</a>
           <span class="pr-sep">@</span>
           <a href="https://github.com/flutter/flutter/pull/186512" style="font-size:.75rem;color:var(--accent)">#186512</a>
-          <span class="pr-badge badge-merged"><span class="pr-badge-dot" style="background:#f91880"></span> Merged</span>
+          <span class="pr-badge badge-merged"><span class="pr-badge-dot" style="background:var(--red)"></span> Merged</span>
         </div>
         <div class="pr-body">Fixed dispose-order memory leak in widget lifecycle &mdash; a bug owner missed for <em>three years</em>. Clean, minimal change, exactly right.</div>
         <a href="https://github.com/flutter/flutter/pull/186512" class="pr-link">View PR &rarr;</a>
@@ -967,7 +981,7 @@
       <div class="testimonial">
         <div class="t-quote">"PR #186512 on the Flutter project addressed a dispose-order memory leak I hadn't thought about in three years. Clean, minimal change, exactly right."</div>
         <div class="t-author">
-          <span class="t-role" style="background:rgba(249,24,128,0.06);color:#f91880;border:1px solid rgba(249,24,128,0.18)">reviewed</span>
+          <span class="t-role" style="background:rgba(249,24,128,0.06);color:var(--red);border:1px solid rgba(249,24,128,0.18)">reviewed</span>
           flutter/flutter &middot; 2025
         </div>
       </div>
@@ -984,10 +998,10 @@
       <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:.5rem">
         <div>
           <h2>Get in touch.</h2>
-          <p style="margin-top:.65rem;max-width:38rem;font-size:.86rem;color:var(--muted)">Open to freelance, full-time, and open-source collaboration. Open a PR on any project or drop an email.</p>
+          <p style="margin-top:.65rem;max-width:38rem;font-size:.86rem;color:var(--muted2)">Open to freelance, full-time, and open-source collaboration. Open a PR on any project or drop an email.</p>
         </div>
         <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-          <a href="mailto:sultantrippu@gmail.com" class="contact-btn" style="border-color:var(--fg);color:var(--fg)">Email &rarr;</a>
+          <a href="mailto:sultantrippu@gmail.com" class="contact-btn">Email &rarr;</a>
           <a href="https://github.com/trippusultan" class="contact-btn" style="border-color:var(--muted);color:var(--muted)">GitHub</a>
           <a href="https://x.com/trippusultan" class="contact-btn" style="border-color:var(--muted);color:var(--muted)">X / Twitter</a>
         </div>
@@ -1013,7 +1027,6 @@
     /* ── Fade-in on load ── */
     const fadeEls = document.querySelectorAll('.fade-in');
     fadeEls.forEach(el => {
-      // Use requestAnimationFrame to ensure the initial state is painted first
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           el.classList.add('visible');
@@ -1027,8 +1040,8 @@
       const hero = document.getElementById('hero');
       const magnetPadding = 150;
       const magnetStrength = 3;
-      let activeTransition = 'transform 0.3s ease-out';
-      let inactiveTransition = 'transform 0.6s ease-in-out';
+      const activeTransition = 'transform 0.3s ease-out';
+      const inactiveTransition = 'transform 0.6s ease-in-out';
 
       hero.addEventListener('mousemove', function(e) {
         const rect = portrait.getBoundingClientRect();
@@ -1044,20 +1057,28 @@
           const moveX = distX * force * magnetStrength;
           const moveY = distY * force * magnetStrength;
           portrait.style.transition = activeTransition;
-          portrait.style.transform = 'translate(calc(-50% + ' + moveX + 'px), ' + (window.innerWidth >= 640 ? moveY + 'px' : 'calc(-50% + ' + moveY + 'px)') + ')';
+          if (window.innerWidth >= 640) {
+            portrait.style.transform = 'translate(calc(-50% + ' + moveX + 'px), ' + moveY + 'px)';
+          } else {
+            portrait.style.transform = 'translate(calc(-50% + ' + moveX + 'px), calc(-50% + ' + moveY + 'px))';
+          }
         } else {
           portrait.style.transition = inactiveTransition;
-          portrait.style.transform = window.innerWidth >= 640
-            ? 'translateX(-50%)'
-            : 'translate(-50%, -50%)';
+          if (window.innerWidth >= 640) {
+            portrait.style.transform = 'translateX(-50%)';
+          } else {
+            portrait.style.transform = 'translate(-50%, -50%)';
+          }
         }
       });
 
       hero.addEventListener('mouseleave', function() {
         portrait.style.transition = inactiveTransition;
-        portrait.style.transform = window.innerWidth >= 640
-          ? 'translateX(-50%)'
-          : 'translate(-50%, -50%)';
+        if (window.innerWidth >= 640) {
+          portrait.style.transform = 'translateX(-50%)';
+        } else {
+          portrait.style.transform = 'translate(-50%, -50%)';
+        }
       });
     }
 
