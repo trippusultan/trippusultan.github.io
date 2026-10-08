@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study: rytemarks</title>
+<meta name="description" content="A self-hosted bookmark manager built with Node.js, Express and SQLite: full-text search, automatic backups, 218 tests.">
+<style>
+:root{--bg:#f7f8f6;--fg:#16201c;--mut:#5b6862;--card:#fff;--line:#dfe5e1;--acc:#0f8a63}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1513;--fg:#e8efeb;--mut:#9aa9a1;--card:#161e1b;--line:#27312d;--acc:#4fd1a1}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:48px 16px 80px}
+h1{font-size:2.2rem;line-height:1.15;margin:0 0 8px}
+h2{font-size:1.25rem;margin:40px 0 12px}
+p{margin:0 0 12px}.lead{font-size:1.15rem;color:var(--mut)}
+a{color:var(--acc)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.tags span{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:2px 12px;font-size:.85rem;color:var(--mut)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.stats b{display:block;font-size:1.5rem}
+.stats small{color:var(--mut)}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
+.row{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-top:16px}
+.row img:first-child{flex:2 1 320px;min-width:0}.row img:last-child{flex:1 1 160px;max-width:220px}
+ul{padding-left:20px;margin:0 0 12px}li{margin-bottom:6px}
+.cta{margin-top:40px;padding:20px;border:1px solid var(--line);background:var(--card);border-radius:10px}
+</style>
+</head>
+<body>
+<main>
+<h1>rytemarks: a private bookmark manager that doesn't lose your data</h1>
+<p class="lead">A self-hosted app to save, tag and search web pages, with the whole archive in one SQLite file. Built end to end by me: backend, search, UI, tests, CI.</p>
+<div class="tags"><span>Node.js 22</span><span>Express 5</span><span>SQLite (FTS5)</span><span>JavaScript</span><span>GitHub Actions CI</span></div>
+<p><a href="https://github.com/trippusultan/rytemarks">Source on GitHub</a></p>
+
+<div class="stats">
+<div><b>218</b><small>automated tests, all passing</small></div>
+<div><b>~3,300</b><small>lines of JavaScript, app and tests</small></div>
+<div><b>0</b><small>third-party requests at runtime</small></div>
+<div><b>2 OS</b><small>CI on Ubuntu and Windows</small></div>
+</div>
+
+<img src="img/home-dark.png" alt="rytemarks in the dark theme">
+<div class="row"><img src="img/home-light.png" alt="Light theme"><img src="img/home-phone.png" alt="Phone layout"></div>
+
+<h2>The problem</h2>
+<p>Hosted bookmark tools lock your data in and can disappear. I wanted one that is fast, works offline on my own machine, and can't lose or leak what I've saved.</p>
+
+<h2>What I built</h2>
+<ul>
+<li><b>Full-text search</b> over titles, notes and the extracted text of every saved page (SQLite FTS5 + Mozilla Readability), with highlighted snippets and multi-tag filtering.</li>
+<li><b>One-click save</b> through a bookmarklet. Saving is instant; the page is fetched in the background with a cap on concurrent fetches.</li>
+<li><b>Data safety:</b> automatic daily backups with rotation, undo for deletes, JSON/CSV export, and restore from your own export.</li>
+<li><b>Import</b> from Chrome, Firefox, Edge, Safari and Raindrop, with a preview step; folders become tags.</li>
+<li><b>Duplicate-proof:</b> URL normalisation strips tracking parameters and trailing slashes, plus a dry-run-first tool to merge old duplicates safely.</li>
+<li><b>Weekly dead-link checker</b> on a cron schedule.</li>
+<li><b>Responsive UI</b> with light/dark themes, keyboard shortcuts and a command palette.</li>
+</ul>
+
+<h2>Decisions I'd defend</h2>
+<ul>
+<li><b>Security for a local app:</b> binds to 127.0.0.1 only, rejects non-localhost Host headers (DNS-rebinding guard), refuses cross-site POSTs, and gates saving behind a secret key so a web page can't make the server fetch URLs.</li>
+<li><b>Safe destructive operations:</b> the dedupe tool defaults to a dry run and takes a backup before it applies.</li>
+<li><b>Spreadsheet-safe CSV:</b> export neutralises cells starting with <code>= + - @</code>.</li>
+<li><b>Small, boring stack:</b> one SQLite file, no ORM, no front-end framework. Easy to run, back up and reason about.</li>
+</ul>
+
+<h2>Testing and delivery</h2>
+<p>Tests run against a throwaway database and a fake local website, so they need no network. CI runs them on Ubuntu and Windows. The repo ships with a licence, contributing guide and security policy.</p>
+
+<div class="cta">
+<b>Need something similar?</b>
+<p>I build Node.js and Python backends, scrapers and automations, small web apps, and fix bugs in existing code. Message me with what you need and a budget range.</p>
+<p><a href="https://github.com/trippusultan">github.com/trippusultan</a> · <!-- add your contact email here --></p>
+</div>
+</main>
+</body>
+</html>
